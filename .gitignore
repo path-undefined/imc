@@ -1,0 +1,5 @@
+node_modules/
+src/parser/source-parser.d.ts
+src/parser/source-parser.js
+src/parser/header-parser.d.ts
+src/parser/header-parser.js
