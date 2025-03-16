@@ -4,12 +4,9 @@
   "description": "IM/C is a toy programming language for providing a slightly better syntax than C programming language, but still keep most of the features of it.",
   "private": true,
   "scripts": {
-    "build:source-parser": "peggy -c ./src/parser/source-peggy-config.json -o ./src/parser/source-parser.js ./src/parser/source-parser.peggy",
-    "build:header-parser": "peggy -c ./src/parser/header-peggy-config.json -o ./src/parser/header-parser.js ./src/parser/header-parser.peggy",
-    "test": "npm run build:source-parser && vitest run"
+    "test": "vitest run"
   },
   "devDependencies": {
-    "peggy": "^4.2.0",
     "typescript": "^5.8.2",
     "vitest": "^3.0.8"
   }

@@ -1,6 +1,0 @@
-{
-  "dts": true,
-  "returnTypes": {
-    "root": "import('./source-ast-node').SourceAstRootNode"
-  }
-}
