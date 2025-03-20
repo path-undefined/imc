@@ -79,10 +79,10 @@ export const tokenDefinitions: TokenDefinition[] = [
   { type: "symbol_]", matcher: "]" },
   { type: "symbol_~", matcher: "~"},
 
-  { type: "literal_string", matcher: /^(u8|u16|u32|L)?"([^"\\]|\\.)*"([ \t\r\n]*"([^"\\]|\\.)*")*/u },
-  { type: "literal_char", matcher: /^(u8|u16|u32|L)?'([^'\\]|\\.)'/u },
+  { type: "literal_string", matcher: /^(u8|u16|u32|l)?"([^"\\]|\\.)*"([ \t\r\n]*"([^"\\]|\\.)*")*/u },
+  { type: "literal_char", matcher: /^(u8|u16|u32|l)?'([^'\\]|\\.)'/u },
   { type: "literal_integer", matcher: /^(0x[0-9A-F]+(`[0-9A-F]+)*|0o[0-7]+(`[0-7]+)*|0b[01]+(`[01]+)*|[0-9]+(`[0-9]+)*)u?(c|s|i|ll|l|z|wb)?/u },
-  { type: "literal_float", matcher: /^((0x[0-9A-F]+(`[0-9A-F]+)*(\.[0-9A-F]+(`[0-9A-F]+)*)?p-?[0-9]+)|(([0-9]+(`[0-9]+)*e-?[0-9]+)|((([0-9]+(`[0-9]+)*\.([0-9]+(`[0-9]+)*)?)|(([0-9]+(`[0-9]+)*)?\.[0-9]+(`[0-9]+)*))(e-?[0-9]+)?)))(f|d|l)?/u },
+  { type: "literal_float", matcher: /^((0x(([0-9A-F]+(`[0-9A-F]+)*)|(([0-9A-F]+(`[0-9A-F]+)*)\.([0-9A-F]+(`[0-9A-F]+)*)?)|(([0-9A-F]+(`[0-9A-F]+)*)?\.([0-9A-F]+(`[0-9A-F]+)*)))p-?[0-9]+)|(([0-9]+(`[0-9]+)*e-?[0-9]+)|((([0-9]+(`[0-9]+)*\.([0-9]+(`[0-9]+)*)?)|(([0-9]+(`[0-9]+)*)?\.[0-9]+(`[0-9]+)*))(e-?[0-9]+)?)))(f|d|l)?/u },
   { type: "literal_bool", matcher: /^true|^false/u },
   { type: "literal_null", matcher: "null" },
 
