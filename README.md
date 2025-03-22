@@ -11,14 +11,14 @@ It provides a different import mechanism than C does. In C, if one wants to use 
 So the first goal of IM/C is to introduce a TypeScript-alike, module based import system. Where one can write code like following lines to make the import happening:
 
 ```
-import printf from io;
-import * as mem from memory;
+import std::io;
+import std::mem;
 
-fn main(argc: int, argv: arr<ptr<char>>) -> int {
+fn main(argc: int, argv: arr<ptr<char>>): int {
   printf("hello world");
 
   let ptrToInteger: ptr<int> = mem::malloc(sizeof int);
-  printf("%d\n", *ptrToInteger);
+  io::printf("%d\n", $ptrToInteger); // <-- Using dollar sign instead of asteroid to avoid ambiguity
   mem::free(ptrToInteger);
 
   return 0;
@@ -37,10 +37,10 @@ float * (*(*foo())[SIZE][SIZE])();
 This can bo replaced by a syntax far more easily to be understood:
 
 ```
-var a: ptr<const int>;
-var b: const ptr<int>;
+val a: ptr<const int>; // A pointer to a constant integer
+val b: const ptr<int>; // A constant pointer to an integer
 
-fn foo() -> ptr<arr<arr<() -> ptr<float>, SIZE>, SIZE>>;
+fn foo(): ptr<arr<arr<() -> ptr<float>, SIZE>, SIZE>>;
 ```
 
 With the power of angle brackets, even a very complex type definition can be read intuitively without applying the "spiral rules".
@@ -48,11 +48,11 @@ With the power of angle brackets, even a very complex type definition can be rea
 Beside these two main syntax improvements, there are also several other minor syntax improvement and syntax sugars to make the code more consistent and readable:
 
 ```
-import * as io from io;
+import std::io;
 
 struct Person {
-  private name: arr<char, 128>; // <-- Here we use semi-colon instean of comma
-  private age: uint;
+  private name: arr<char, 128>; // <-- Here we use semi-colon instead of comma
+  private age: uint; // <-- Using uint, ulong, ulonglong, ufloat instead of introducing thousands of type modifiers
 }
 
 fn new(name: arr<char>, age: uint) -> Person {
@@ -64,23 +64,28 @@ fn new(name: arr<char>, age: uint) -> Person {
 //     return person->name;
 //   }
 fn ptr<const Person>.getName() -> arr<char> {
-  return (*this).name;
+  return $this.name;
 }
 
 fn ptr<const Person>.getAge() -> uint {
-  return (*this).age;
+  return $this.age;
 }
 
 fn ptr<Person>.getOlder(years: uint) -> void {
-  (*this).age += years;
+  $this.age += years;
 }
 
 fn main() -> int {
-  var person: Person = new("John Doe", 36);
-  io.printf("%s (%d)\n", person.getName(), person.getAge());
+  val person: Person = new("John Doe", 36);
+  io::printf("%s (%d)\n", person.getName(), person.getAge());
 
   person.getOlder(1);
-  io.printf("%s (%d)\n", person.getName(), person.getAge());
+  io::printf("%s (%d)\n", person.getName(), person.getAge());
+
+  val anotherPerson: const Person = new("Jane Joe", 20);
+  io::printf("%s (%d)\n", person.getName(), person.getAge());
+
+  // person.getOlder(1); <-- this is not possible, because the receiver must be a const type
 
   return 0;
 }
