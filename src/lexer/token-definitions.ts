@@ -86,5 +86,5 @@ export const tokenDefinitions: TokenDefinition[] = [
   { type: "literal_bool", matcher: /^true|^false/u },
   { type: "literal_null", matcher: "null" },
 
-  { type: "identifier", matcher: /^[A-Za-z_][0-9A-Za-z_]*/u },
+  { type: "identifier", matcher: /^[A-Za-z_][0-9A-Za-z_]*(::[A-Za-z_][0-9A-Za-z_]*)*/u },
 ];

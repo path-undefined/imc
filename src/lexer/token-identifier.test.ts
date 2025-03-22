@@ -1,6 +1,6 @@
 import { tokenize } from "./lexer";
 
-describe("token:literal-string", () => {
+describe("token:identifier", () => {
   it("should be tokenized correctly", () => {
     const examples = [
       "variable",
@@ -11,6 +11,7 @@ describe("token:literal-string", () => {
       "__variable2__",
       "_2",
       "forKeyword",
+      "std::io",
     ];
 
     const tokens = tokenize(examples.join("\n"));

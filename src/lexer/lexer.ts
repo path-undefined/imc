@@ -1,6 +1,10 @@
 import { Token } from "./token";
 import { tokenDefinitions } from "./token-definitions";
 
+function isRegExp(m: RegExp | string): m is RegExp {
+  return m instanceof RegExp;
+}
+
 export function tokenize(source: string): Token[] {
   const tokens: Token[] = [];
   
@@ -63,8 +67,4 @@ export function tokenize(source: string): Token[] {
   }
 
   return tokens;
-}
-
-function isRegExp(m: RegExp | string): m is RegExp {
-  return m instanceof RegExp;
 }

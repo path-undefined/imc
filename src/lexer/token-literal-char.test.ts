@@ -1,6 +1,6 @@
 import { tokenize } from "./lexer";
 
-describe("token:literal-string", () => {
+describe("token:literal_string", () => {
   it("should be tokenized correctly", () => {
     const examples = [
       "'a'",

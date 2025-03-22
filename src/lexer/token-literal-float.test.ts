@@ -1,6 +1,6 @@
 import { tokenize } from "./lexer";
 
-describe("token:literal-float", () => {
+describe("token:literal_float", () => {
   it("should be tokenized correctly (decimal)", () => {
     const examples = [
       "1.",

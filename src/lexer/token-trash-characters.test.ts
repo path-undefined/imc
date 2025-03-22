@@ -1,6 +1,6 @@
 import { tokenize } from "./lexer";
 
-describe("token:trash-characters", () => {
+describe("token:trash_characters", () => {
   it("should not be tokenized", () => {
     const tokens = tokenize(
       " \t\r\n",

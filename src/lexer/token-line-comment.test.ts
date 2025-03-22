@@ -1,6 +1,6 @@
 import { tokenize } from "./lexer";
 
-describe("token:line-comment", () => {
+describe("token:line_comment", () => {
   it("should not be tokenized", () => {
     const tokens = tokenize(
       "// These are useless\n" +
