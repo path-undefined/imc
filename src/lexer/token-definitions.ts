@@ -7,16 +7,11 @@ export const tokenDefinitions: TokenDefinition[] = [
   { type: "line_comment", matcher: /^\/\/.*(\r\n|\r|\n|$)/u },
   { type: "trash_character", matcher: /^[ \t\r\n]+/u },
 
-  { type: "annotation_auto", matcher: "@auto" },
   { type: "annotation_register", matcher: "@register" },
-  { type: "annotation_static", matcher: "@static" },
-  { type: "annotation_extern", matcher: "@extern" },
   { type: "annotation_inline", matcher: "@inline" },
-  { type: "annotation_thread_local", matcher: "@thread_local" },
+  { type: "annotation_threadlocal", matcher: "@threadlocal" },
   { type: "annotation_restrict", matcher: "@restrict" },
   { type: "annotation_volatile", matcher: "@volatile" },
-  { type: "annotation_public", matcher: "@public" },
-  { type: "annotation_private", matcher: "@private" },
   
   { type: "keyword_import", matcher: "import" },
   { type: "keyword_export", matcher: "export" },
@@ -29,6 +24,8 @@ export const tokenDefinitions: TokenDefinition[] = [
   { type: "keyword_elseif", matcher: "elseif" },
   { type: "keyword_else", matcher: "else" },
   { type: "keyword_const", matcher: "const" },
+  { type: "keyword_public", matcher: "public" },
+  { type: "keyword_private", matcher: "private" },
   { type: "keyword_var", matcher: "var" },
   { type: "keyword_enum", matcher: "enum" },
   { type: "keyword_struct", matcher: "struct" },
@@ -86,5 +83,5 @@ export const tokenDefinitions: TokenDefinition[] = [
   { type: "literal_bool", matcher: /^true|^false/u },
   { type: "literal_null", matcher: "null" },
 
-  { type: "identifier", matcher: /^[A-Za-z_][0-9A-Za-z_]*(::[A-Za-z_][0-9A-Za-z_]*)*/u },
+  { type: "identifier", matcher: /^[A-Za-z_][0-9A-Za-z_]*/u },
 ];

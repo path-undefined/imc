@@ -31,7 +31,15 @@ export function parse(tokens: Token[]): AstNode[] {
   const dsa = buildDecisionDsa(tokenDefinitions, ruleDefinitions);
 
   const astStack: AstNode[] = [];
-  const copiedTokens: Token[] = [...tokens];
+  const copiedTokens: Token[] = [
+    ...tokens,
+    {
+      type: "_END_",
+      raw: "",
+      start: { line: 0, char: 0 },
+      end: { line: 0, char: 0 },
+    },
+  ];
 
   while (copiedTokens.length > 0) {
     const token = copiedTokens[0];
@@ -58,9 +66,45 @@ export function parse(tokens: Token[]): AstNode[] {
       }
       if (state.sequence.length <= state.index && state.lookahead === token.type) {
         const nodesInSeq = astStack.splice(astStack.length - state.sequence.length, state.sequence.length);
+        const children: AstNode[] = [];
+
+        for (const node of nodesInSeq) {
+          const ruleDef = ruleDefinitions.find((r) => r.type === node.type);
+          if (ruleDef && ruleDef.omitIf) {
+            let omitting = false;
+            for (const omitCondition of ruleDef.omitIf) {
+              if (omitCondition.always === true) {
+                omitting = true;
+                break;
+              }
+              if (omitCondition.parentIs && omitCondition.parentIs !== state.type) {
+                omitting = omitting || false;
+                continue;
+              }
+              if (
+                omitCondition.childrenAre &&
+                !twoSequencesAreEqual(omitCondition.childrenAre, node.children.map((c) => c.type))
+              ) {
+                omitting = omitting || false;
+                continue;
+              }
+              omitting = true;
+              break;
+            }
+
+            if (omitting) {
+              children.push(...node.children);
+            } else {
+              children.push(node);
+            }
+          } else {
+            children.push(node);
+          }
+        }
+
         const newNode: AstNode = {
           type: state.type,
-          children: [ ...nodesInSeq ],
+          children,
         };
         astStack.push(newNode);
         console.log("reduce");

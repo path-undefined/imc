@@ -11,7 +11,6 @@ describe("token:identifier", () => {
       "__variable2__",
       "_2",
       "forKeyword",
-      "std::io",
     ];
 
     const tokens = tokenize(examples.join("\n"));
