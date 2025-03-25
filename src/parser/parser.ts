@@ -18,7 +18,7 @@ function runDsa(dsa: DecisionDsa, stackSequence: string[]): DecisionDsaState {
       ?.toState || -1;
 
     if (nextStateIndex < 0) {
-      throw Error("Unexpected input ...");
+      throw Error("An unexpected error occurs");
     }
 
     currentStateIndex = nextStateIndex;
@@ -49,21 +49,18 @@ export function parse(tokens: Token[]): AstNode[] {
     console.log("stack:", astStack.map((n) => n.type).join(" "));
     console.log("input", token.type);
 
+    let operation = "";
+
     for (const state of dsaState) {
-      console.log(state.type, "-->", state.sequence.join(" "), "/", state.lookahead);
-      const symbolIndex = state.sequence.indexOf(token.type);
-      if (
-        symbolIndex >= 0 &&
-        twoSequencesAreEqual(
-          state.sequence.slice(0, symbolIndex),
-          astStackSeq.slice(astStackSeq.length - symbolIndex),
-        )
-      ) {
+      console.log(state.type, "-->", state.sequence.join(" "), "/", state.index, "/", state.lookahead);
+
+      if (state.sequence[state.index] === token.type) {
         astStack.push({ type: token.type, token, children: [] });
         copiedTokens.shift();
-        console.log("shift");
+        operation = "shift";
         break;
       }
+
       if (state.sequence.length <= state.index && state.lookahead === token.type) {
         const nodesInSeq = astStack.splice(astStack.length - state.sequence.length, state.sequence.length);
         const children: AstNode[] = [];
@@ -107,11 +104,17 @@ export function parse(tokens: Token[]): AstNode[] {
           children,
         };
         astStack.push(newNode);
-        console.log("reduce");
+        operation = "reduce";
         break;
       }
     }
-    
+
+    if (!operation) {
+      console.error("No operation found");
+      throw new Error("An unexpected error occurs");
+    }
+
+    console.log(operation);
     console.log();
   }
 

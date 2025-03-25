@@ -14,7 +14,7 @@ export const ruleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "global_statements",
     rule: [
-      ["global_statement", "global_statements"],
+      ["global_statements", "global_statement"],
       ["global_statement"],
     ],
     omitIf: [
@@ -36,15 +36,15 @@ export const ruleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "import_statement",
     rule: [
-      ["keyword_import", "full_identifier", "alias_phrase", "symbol_;"],
-      ["keyword_import", "full_identifier", "symbol_;"],
+      ["keyword_import", "compound_identifier", "alias_phrase", "symbol_;"],
+      ["keyword_import", "compound_identifier", "symbol_;"],
     ],
   },
   {
     type: "export_statement",
     rule: [
-      ["keyword_export", "full_identifier", "alias_phrase", "symbol_;"],
-      ["keyword_export", "full_identifier", "symbol_;"],
+      ["keyword_export", "compound_identifier", "alias_phrase", "symbol_;"],
+      ["keyword_export", "compound_identifier", "symbol_;"],
     ],
   },
   {
@@ -60,11 +60,8 @@ export const ruleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "definition_statement",
     rule: [
-      ["enum_definition_statement"],
-      // ["type_definition_statement"],
-      // ["struct_definition_statement"],
-      // ["union_definition_statement"],
-      // ["val_definition_statement"],
+      ["type_definition_statement"],
+      // ["var_definition_statement"],
       // ["fn_definition_statement"],
     ],
     omitIf: [
@@ -73,39 +70,125 @@ export const ruleDefinitions: AstNodeRuleDefinition[] = [
   },
 
   {
-    type: "enum_definition_statement",
+    type: "type_definition_statement",
     rule: [
-      [
-        "keyword_enum", "single_identifier", "symbol_{",
-          "enumerators",
-        "symbol_}",
-      ]
+      ["keyword_type", "single_identifier", "symbol_=", "type_expression", "symbol_;"],
+      ["keyword_type", "single_identifier", "symbol_<", "type_parameters", "symbol_>", "symbol_=", "type_expression", "symbol_;"],
+      ["keyword_type", "single_identifier", "symbol_<", "type_parameters", "symbol_,", "symbol_>", "symbol_=", "type_expression", "symbol_;"],
     ],
   },
   {
-    type: "enumerators",
+    type: "type_parameters",
     rule: [
-      ["enumerators", "enumerator"],
-      ["enumerator"],
+      ["type_parameters", "symbol_,", "type_parameter"],
+      ["type_parameter"],
     ],
     omitIf: [
-      { parentIs: "enumerators" },
+      { parentIs: "type_parameters" },
     ],
   },
   {
-    type: "enumerator",
+    type: "type_parameter",
     rule: [
-      ["single_identifier", "symbol_=", "literal_integer", "symbol_;"],
-      ["single_identifier", "symbol_;"],
+      ["single_identifier"],
+      ["keyword_size", "single_identifier"],
+    ],
+  },
+  {
+    type: "type_expression",
+    rule: [
+      ["single_type_expression"],
+      ["enum_definition_type_expression"],
+      // ["struct_definition_type_expression"],
+      // ["function_definition_type_expression"],
+      ["generic_type_expression"],
+    ],
+  },
+  {
+    type: "single_type_expression",
+    rule: [
+      ["compound_identifier"],
+    ],
+  },
+  {
+    type: "enum_definition_type_expression",
+    rule: [
+      ["keyword_enum", "symbol_{", "enum_items", "symbol_}"],
+      ["keyword_enum", "symbol_{", "enum_items", "symbol_,", "symbol_}"],
+    ],
+  },
+  {
+    type: "enum_items",
+    rule: [
+      ["enum_items", "symbol_,", "enum_item"],
+      ["enum_item"],
+    ],
+    omitIf: [
+      { parentIs: "enum_items" },
+    ],
+  },
+  {
+    type: "enum_item",
+    rule: [
+      ["single_identifier", "symbol_=", "const_expression"],
+      ["single_identifier"],
+    ],
+  },
+  {
+    type: "generic_type_expression",
+    rule: [
+      ["compound_identifier", "symbol_<", "type_arguments", "symbol_>"],
+      ["compound_identifier", "symbol_<", "type_arguments", "symbol_,", "symbol_>"],
+    ],
+  },
+  {
+    type: "type_arguments",
+    rule: [
+      ["type_arguments", "symbol_,", "type_argument"],
+      ["type_argument"],
+    ],
+    omitIf: [
+      { parentIs: "type_arguments" },
+    ],
+  },
+  {
+    type: "type_argument",
+    rule: [
+      ["type_expression"],
+      ["size_expression"],
+    ],
+  },
+  {
+    type: "size_expression",
+    rule: [
+      ["const_expression"],
+    ],
+  },
+
+  /*
+  {
+    type: "var_definition_statement",
+    rule: [
+      ["keyword_var", "single_identifier", "symbol_:", "type_expression", "symbol_;"],
+      ["kepword_var", "single_identifier", "symbol_:", "type_expression", "symbol_=", "expression", "symbol_;"]
     ],
   },
 
   {
     type: "expression",
     rule: [
-      ["dash_op_expression"],
+      ["literal_integer"],
     ],
   },
+  */
+  {
+    type: "const_expression",
+    rule: [
+      ["literal_integer"],
+    ],
+  },
+
+  /*
   {
     type: "dash_op_expression",
     rule: [
@@ -129,6 +212,7 @@ export const ruleDefinitions: AstNodeRuleDefinition[] = [
       { childrenAre: ["literal_integer"] },
     ],
   },
+  */
 
   {
     type: "single_identifier",
@@ -137,13 +221,13 @@ export const ruleDefinitions: AstNodeRuleDefinition[] = [
     ]
   },
   {
-    type: "full_identifier",
+    type: "compound_identifier",
     rule: [
-      [ "full_identifier", "symbol_::", "identifier" ],
+      [ "compound_identifier", "symbol_::", "identifier" ],
       [ "identifier" ],
     ],
     omitIf: [
-      { parentIs: "full_identifier" },
+      { parentIs: "compound_identifier" },
     ],
   },
 ];
