@@ -1,0 +1,64 @@
+import { AstNodeRuleDefinition } from "./rule-definitions";
+
+export const funcRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
+  {
+    type: "func_parameters",
+    rule: [
+      ["func_parameters_"],
+      ["func_parameters_", "symbol_,"],
+    ],
+  },
+  {
+    type: "func_parameters_",
+    rule: [
+      ["func_parameters_", "symbol_,", "func_parameter"],
+      ["func_parameter"],
+    ],
+    omitIf: [
+      { parentIs: "func_parameters_" },
+      { parentIs: "func_parameters" },
+    ],
+  },
+  {
+    type: "func_parameter",
+    rule: [
+      ["single_identifier", "symbol_:", "type_expression"],
+    ],
+  },
+  {
+    type: "func_arguments",
+    rule: [
+      ["func_arguments_"],
+      ["func_arguments_", "symbol_,"],
+    ],
+  },
+  {
+    type: "func_arguments_",
+    rule: [
+      ["func_arguments_", "symbol_,", "func_argument"],
+      ["func_argument"],
+    ],
+    omitIf: [
+      { parentIs: "func_arguments_" },
+      { parentIs: "func_arguments" },
+    ],
+  },
+  {
+    type: "func_argument",
+    rule: [
+      ["expression"],
+    ],
+  },
+  {
+    type: "func_receiver_type",
+    rule: [
+      ["type_expression"],
+    ],
+  },
+  {
+    type: "func_return_type",
+    rule: [
+      ["type_expression"],
+    ],
+  },
+];

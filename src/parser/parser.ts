@@ -1,11 +1,7 @@
+import * as prebuiltDsa from "./helpers/dsa.json";
 import { Token } from "../lexer/token";
-import { tokenDefinitions } from "../lexer/token-definitions";
 import { AstNode } from "./ast-node";
-import {
-  buildDecisionDsa,
-  DecisionDsa,
-  DecisionDsaState,
-} from "./helpers/build-decision-dsa";
+import { DecisionDsa, DecisionDsaState } from "./helpers/build-decision-dsa";
 import { twoSequencesAreEqual } from "./helpers/utilities";
 import { ruleDefinitions } from "./rule-definitions";
 
@@ -28,8 +24,6 @@ function runDsa(dsa: DecisionDsa, stackSequence: string[]): DecisionDsaState {
 }
 
 export function parse(tokens: Token[]): AstNode[] {
-  const dsa = buildDecisionDsa(tokenDefinitions, ruleDefinitions);
-
   const astStack: AstNode[] = [];
   const copiedTokens: Token[] = [
     ...tokens,
@@ -44,7 +38,7 @@ export function parse(tokens: Token[]): AstNode[] {
   while (copiedTokens.length > 0) {
     const token = copiedTokens[0];
     const astStackSeq = astStack.map((n) => n.type);
-    const dsaState = runDsa(dsa, astStackSeq);
+    const dsaState = runDsa(prebuiltDsa as any, astStackSeq);
 
     console.log("stack:", astStack.map((n) => n.type).join(" "));
     console.log("input", token.type);

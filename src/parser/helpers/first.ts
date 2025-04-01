@@ -13,6 +13,7 @@ export function buildFirst(
 
   for (const ruleDef of grammarRules) {
     let resultSymbolSet: Set<string> = new Set([ruleDef.type]);
+    let derivedSymbolSet: Set<string> = new Set([ruleDef.type]);
 
     let hasNewResult = true;
     while (hasNewResult) {
@@ -23,13 +24,14 @@ export function buildFirst(
         if (terminalSymbols.has(symbol)) {
           newSymbolSet.add(symbol);
         } else {
-          const ruleDef = grammarRules.find((ruleDef) => ruleDef.type === symbol);
+          const ruleDef = grammarRules.find((r) => r.type === symbol);
           for (const seq of ruleDef.rule) {
-            if (seq[0] !== symbol && !resultSymbolSet.has(seq[0])) {
+            if (seq[0] !== symbol && !resultSymbolSet.has(seq[0]) && !derivedSymbolSet.has(seq[0])) {
               newSymbolSet.add(seq[0]);
               hasNewResult = true;
             }
           }
+          derivedSymbolSet.add(ruleDef.type);
         }
       }
   

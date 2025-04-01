@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2016",
+    "module":"ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target":"ES2016",
     "types": [
       "vitest/globals"
     ]

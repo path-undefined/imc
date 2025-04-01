@@ -14,20 +14,6 @@ export function twoSequencesAreEqual(seq1: string[], seq2: string[]): boolean {
   return true;
 }
 
-export function buildTerminalSymbolSet(tokenDefinitions: TokenDefinition[]): Set<string> {
-  return new Set([
-    ...tokenDefinitions.map((token) => token.type),
-    "_END_",
-  ]);
-}
-
-export function buildGrammarRules(ruleDefinitions: AstNodeRuleDefinition[]): AstNodeRuleDefinition[] {
-  return [
-    { type: "_START_", rule: [[ruleDefinitions[0].type, "_END_"]] },
-    ...ruleDefinitions,
-  ];
-}
-
 export function twoStatesAreEqual(s1: State, s2: State): boolean {
   if (s1.type !== s2.type) {
     return false;
@@ -42,4 +28,23 @@ export function twoStatesAreEqual(s1: State, s2: State): boolean {
     return false;
   }
   return true;
+}
+
+export function buildTerminalSymbolSet(tokenDefinitions: TokenDefinition[]): Set<string> {
+  return new Set([
+    ...tokenDefinitions.map((token) => token.type),
+    "_END_",
+  ]);
+}
+
+export function buildGrammarRules(ruleDefinitions: AstNodeRuleDefinition[]): AstNodeRuleDefinition[] {
+  return [
+    {
+      type: "_START_",
+      rule: [
+        [ruleDefinitions[0].type, "_END_"]
+      ],
+    },
+    ...ruleDefinitions,
+  ];
 }

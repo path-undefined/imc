@@ -5,12 +5,14 @@
   "private": true,
   "scripts": {
     "test": "vitest run",
-    "test:dev": "vitest dev"
+    "test:dev": "vitest dev",
+    "generate:dsa": "tsx src/parser/helpers/generate-dsa"
   },
   "dependencies": {
     "tsx": "^4.19.3"
   },
   "devDependencies": {
+    "@types/node": "^22.13.14",
     "typescript": "^5.8.2",
     "vitest": "^3.0.8"
   }
