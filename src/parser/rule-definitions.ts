@@ -6,7 +6,7 @@ import { importExportRuleDefinitions } from "./import-export-rule-definitions";
 import { templateRelatedRuleDefinitions } from "./template-related-rule-definitions";
 import { typeRelatedRuleDefinitions } from "./type-related-rule-definitions";
 
-type OmitRule = {
+export type OmitRule = {
   parentIs?: string;
   childrenAre?: string[];
   always?: true;

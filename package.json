@@ -6,7 +6,7 @@
   "scripts": {
     "test": "vitest run",
     "test:dev": "vitest dev",
-    "generate:dsa": "tsx src/parser/helpers/generate-dsa"
+    "build:dsa": "tsx src/parser/decision-dsa/build"
   },
   "dependencies": {
     "tsx": "^4.19.3"

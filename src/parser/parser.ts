@@ -1,8 +1,8 @@
-import * as prebuiltDsa from "./helpers/dsa.json";
+import * as decisionDsa from "./decision-dsa.json";
 import { Token } from "../lexer/token";
 import { AstNode } from "./ast-node";
-import { DecisionDsa, DecisionDsaState } from "./helpers/build-decision-dsa";
-import { twoSequencesAreEqual } from "./helpers/utilities";
+import { DecisionDsa, DecisionDsaState } from "./decision-dsa/types";
+import { twoSequencesAreEqual } from "./decision-dsa/utilities";
 import { ruleDefinitions } from "./rule-definitions";
 
 function runDsa(dsa: DecisionDsa, stackSequence: string[]): DecisionDsaState {
@@ -38,16 +38,11 @@ export function parse(tokens: Token[]): AstNode[] {
   while (copiedTokens.length > 0) {
     const token = copiedTokens[0];
     const astStackSeq = astStack.map((n) => n.type);
-    const dsaState = runDsa(prebuiltDsa as any, astStackSeq);
-
-    console.log("stack:", astStack.map((n) => n.type).join(" "));
-    console.log("input", token.type);
+    const dsaState = runDsa(decisionDsa as any, astStackSeq);
 
     let operation = "";
 
     for (const state of dsaState) {
-      console.log(state.type, "-->", state.sequence.join(" "), "/", state.index, "/", state.lookahead);
-
       if (state.sequence[state.index] === token.type) {
         astStack.push({ type: token.type, token, children: [] });
         copiedTokens.shift();
@@ -107,9 +102,6 @@ export function parse(tokens: Token[]): AstNode[] {
       console.error("No operation found");
       throw new Error("An unexpected error occurs");
     }
-
-    console.log(operation);
-    console.log();
   }
 
   return astStack;

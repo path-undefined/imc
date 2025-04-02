@@ -120,7 +120,16 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "assignment_statement",
     rule: [
-      ["compound_identifier", "symbol_=", "expression", "symbol_;"],
+      ["left_value", "symbol_=", "expression", "symbol_;"],
+    ],
+  },
+  {
+    type: "left_value",
+    rule: [
+      ["compound_identifier"],
+      ["get_value_expression"],
+      ["array_indexing_expression"],
+      ["member_accessing_expression"],
     ],
   },
   {
