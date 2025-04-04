@@ -61,6 +61,7 @@ export const tokenDefinitions: TokenDefinition[] = [
   { type: "symbol_}", matcher: "}" },
   { type: "symbol_$", matcher: "$" },
   { type: "symbol_.", matcher: "."},
+  { type: "symbol_...", matcher: "..."},
   { type: "symbol_&&", matcher: "&&" },
   { type: "symbol_==", matcher: "==" },
   { type: "symbol_||", matcher: "||" },

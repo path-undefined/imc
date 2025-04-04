@@ -4,14 +4,15 @@ import { AstNode } from "./types";
 import { DecisionDsa, DecisionDsaState } from "./decision-dsa/types";
 import { twoSequencesAreEqual } from "./decision-dsa/utilities";
 import { ruleDefinitions } from "./rule-definitions/rule-definitions";
+import { log } from "../logger/logger";
 
 function runDsa(dsa: DecisionDsa, stackSequence: string[]): DecisionDsaState {
   let currentStateIndex = 0;
 
   for (const symbol of stackSequence) {
     const nextStateIndex = dsa.transitions
-      .find((t) => t.fromState === currentStateIndex && t.symbol === symbol)
-      ?.toState || -1;
+      .find((t) => t.from === currentStateIndex && t.symbol === symbol)
+      ?.to || -1;
 
     if (nextStateIndex < 0) {
       throw Error("An unexpected error occurs");
@@ -40,13 +41,19 @@ export function parse(tokens: Token[]): AstNode[] {
     const astStackSeq = astStack.map((n) => n.type);
     const dsaState = runDsa(decisionDsa as any, astStackSeq);
 
+    log("debug", `Stack: ${astStackSeq.join(" ")}`);
+    log("debug", `Next token: ${token.type}`);
+
     let operation = "";
 
     for (const state of dsaState) {
+      log("debug", `    Attempting: ${state.type} --> ${state.sequence.join(" ")} | ${state.lookahead}`);
+
       if (state.sequence[state.index] === token.type) {
         astStack.push({ type: token.type, token, children: [] });
         copiedTokens.shift();
         operation = "shift";
+        log("debug", "Operation: SHIFT");
         break;
       }
 
@@ -55,13 +62,6 @@ export function parse(tokens: Token[]): AstNode[] {
         const children: AstNode[] = [];
 
         for (const node of nodesInSeq) {
-          if (
-            node.type.startsWith("keyword_") ||
-            node.type.startsWith("symbol_")
-          ) {
-            continue;
-          }
-
           const ruleDef = ruleDefinitions.find((r) => r.type === node.type);
           if (ruleDef && ruleDef.transparentIf) {
             let transparent = false;
@@ -101,9 +101,12 @@ export function parse(tokens: Token[]): AstNode[] {
         };
         astStack.push(newNode);
         operation = "reduce";
+        log("debug", "Operation: REDUCE");
         break;
       }
     }
+
+    log("debug", "");
 
     if (!operation) {
       console.error("No operation found");

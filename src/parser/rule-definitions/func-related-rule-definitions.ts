@@ -23,6 +23,7 @@ export const funcRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     type: "func_parameter",
     rule: [
       ["local_identifier", "symbol_:", "type_expression"],
+      ["symbol_..."],
     ],
   },
   {

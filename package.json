@@ -6,7 +6,7 @@
   "scripts": {
     "test": "vitest run",
     "test:dev": "vitest dev",
-    "build:dsa": "tsx src/parser/decision-dsa/build"
+    "build:dsa": "LOG_LEVEL=debug tsx src/parser/decision-dsa/build"
   },
   "dependencies": {
     "tsx": "^4.19.3"

@@ -2,8 +2,8 @@ import { TokenDefinition } from "../../lexer/token-definitions";
 import { AstNodeRuleDefinition } from "../rule-definitions/rule-definitions";
 import { buildDecisionDsa } from "./build-decision-dsa";
 
-describe("closure", () => {
-  it ("should generate correct closure", () => {
+describe("decision DSA", () => {
+  it ("should generate correct decision DSA", () => {
     const tokenDefinitions: TokenDefinition[] = [
       { type: "c", matcher: "c" },
       { type: "d", matcher: "d" },
@@ -75,19 +75,19 @@ describe("closure", () => {
       ]),
         
       transitions: expect.arrayContaining([
-        { fromState: 0, toState: 1, symbol: "c" },
-        { fromState: 0, toState: 2, symbol: "d" },
-        { fromState: 0, toState: 3, symbol: "S" },
-        { fromState: 0, toState: 4, symbol: "C" },
-        { fromState: 1, toState: 1, symbol: "c" },
-        { fromState: 1, toState: 2, symbol: "d" },
-        { fromState: 1, toState: 5, symbol: "C" },
-        { fromState: 4, toState: 6, symbol: "c" },
-        { fromState: 4, toState: 7, symbol: "d" },
-        { fromState: 4, toState: 8, symbol: "C" },
-        { fromState: 6, toState: 6, symbol: "c" },
-        { fromState: 6, toState: 7, symbol: "d" },
-        { fromState: 6, toState: 9, symbol: "C" }
+        { from: 0, to: 1, symbol: "c" },
+        { from: 0, to: 2, symbol: "d" },
+        { from: 0, to: 3, symbol: "S" },
+        { from: 0, to: 4, symbol: "C" },
+        { from: 1, to: 1, symbol: "c" },
+        { from: 1, to: 2, symbol: "d" },
+        { from: 1, to: 5, symbol: "C" },
+        { from: 4, to: 6, symbol: "c" },
+        { from: 4, to: 7, symbol: "d" },
+        { from: 4, to: 8, symbol: "C" },
+        { from: 6, to: 6, symbol: "c" },
+        { from: 6, to: 7, symbol: "d" },
+        { from: 6, to: 9, symbol: "C" }
       ])
     });
   });

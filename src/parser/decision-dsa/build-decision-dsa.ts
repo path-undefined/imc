@@ -1,4 +1,5 @@
 import { TokenDefinition } from "../../lexer/token-definitions";
+import { log } from "../../logger/logger";
 import { AstNodeRuleDefinition } from "../rule-definitions/rule-definitions";
 import { buildClosure } from "./closure";
 import { buildGoto } from "./goto";
@@ -25,10 +26,10 @@ function twoDsaTransitionsAreEqual(
   t1: DecisionDsaTransition,
   t2: DecisionDsaTransition,
 ): boolean {
-  if (t1.fromState !== t2.fromState) {
+  if (t1.from !== t2.from) {
     return false;
   }
-  if (t1.toState !== t2.toState) {
+  if (t1.to !== t2.to) {
     return false;
   }
   if (t1.symbol !== t2.symbol) {
@@ -42,10 +43,10 @@ export function buildDecisionDsa(
   tokenDefinitions: TokenDefinition[],
   ruleDefinitions: AstNodeRuleDefinition[],
 ): DecisionDsa {
-  console.log("Building closure function ...");
+  log("debug", "Building closure function ...");
   const closure = buildClosure(tokenDefinitions, ruleDefinitions);
 
-  console.log("Building goto function ...");
+  log("debug", "Building goto function ...");
   const goto = buildGoto(tokenDefinitions, ruleDefinitions);
 
   const allSymbols = [
@@ -53,7 +54,7 @@ export function buildDecisionDsa(
     ...ruleDefinitions.map((rule) => rule.type),
   ];
 
-  const dsa = {
+  const dsa: DecisionDsa = {
     states: [],
     transitions: [],
   };
@@ -67,7 +68,7 @@ export function buildDecisionDsa(
 
   dsa.states.push(firstState);
 
-  console.log("Discovering states ...");
+  log("debug", "Discovering states ...");
 
   // We don't need the outer while and the boolean flag here. Because the
   // 2nd expression in the for statement will be evaluated in each loop, which
@@ -76,7 +77,7 @@ export function buildDecisionDsa(
   // useless.
   for (let i = 0; i < dsa.states.length; i++) {
     const dsaState = dsa.states[i];
-    console.log(`State analysed / discovered: ${i + 1} / ${dsa.states.length}`);
+    log("debug", `State analysed / discovered: ${i + 1} / ${dsa.states.length}`);
 
     for (const symbol of allSymbols) {
       const newDsaState = goto(dsaState, symbol);
@@ -90,9 +91,9 @@ export function buildDecisionDsa(
         dsa.states.push(newDsaState);
       }
 
-      const newDsaTransition = {
-        fromState: i,
-        toState: index >= 0 ? index : dsa.states.length - 1,
+      const newDsaTransition: DecisionDsaTransition = {
+        from: i,
+        to: index >= 0 ? index : dsa.states.length - 1,
         symbol,
       }
       if (dsa.transitions.every((t) => !twoDsaTransitionsAreEqual(t, newDsaTransition))) {
@@ -101,7 +102,7 @@ export function buildDecisionDsa(
     }
   }
 
-  console.log("Decision DSA has been fully built ...")
+  log("debug", "Decision DSA has been fully built ...")
 
   return dsa;
 }

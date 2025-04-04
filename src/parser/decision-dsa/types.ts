@@ -1,8 +1,8 @@
 export type DecisionDsaState = RuleState[];
 
 export type DecisionDsaTransition = {
-  fromState: number;
-  toState: number;
+  from: number;
+  to: number;
   symbol: string;
 };
 
