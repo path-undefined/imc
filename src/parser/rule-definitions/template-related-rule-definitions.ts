@@ -14,7 +14,7 @@ export const templateRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["template_parameters_", "symbol_,", "template_parameter"],
       ["template_parameter"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "template_parameters_" },
       { parentIs: "template_parameters" },
     ],
@@ -26,26 +26,26 @@ export const templateRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["constrained_template_parameter"],
       ["value_template_parameter"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
   {
     type: "simple_template_parameter",
     rule: [
-      ["single_identifier"],
+      ["local_identifier"],
     ],
   },
   {
     type: "constrained_template_parameter",
     rule: [
-      ["single_identifier", "symbol_:", "type_expression"],
+      ["local_identifier", "symbol_:", "type_expression"],
     ],
   },
   {
     type: "value_template_parameter",
     rule: [
-      ["keyword_value", "single_identifier", "symbol_:", "type_expression"],
+      ["keyword_value", "local_identifier", "symbol_:", "type_expression"],
     ],
   },
 ];

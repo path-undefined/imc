@@ -2,19 +2,19 @@ import { AstNodeRuleDefinition } from "./rule-definitions";
 
 export const identifierRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
-    type: "single_identifier",
+    type: "local_identifier",
     rule: [
       [ "identifier" ],
     ]
   },
   {
-    type: "compound_identifier",
+    type: "global_identifier",
     rule: [
-      [ "compound_identifier", "symbol_::", "identifier" ],
+      [ "global_identifier", "symbol_::", "identifier" ],
       [ "identifier" ],
     ],
-    omitIf: [
-      { parentIs: "compound_identifier" },
+    transparentIf: [
+      { parentIs: "global_identifier" },
     ],
   },
 ];

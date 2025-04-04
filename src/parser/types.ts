@@ -1,4 +1,4 @@
-import { Token } from "../lexer/token";
+import { Token } from "../lexer/types";
 
 export type AstNode = {
   type: string;

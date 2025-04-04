@@ -92,7 +92,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["array_items_", "symbol_,", "array_item"],
       ["array_item"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "array_items_" },
       { parentIs: "array_items" },
     ],
@@ -125,7 +125,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["struct_entries_", "symbol_,", "struct_entry"],
       ["struct_entry"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "struct_entries_" },
       { parentIs: "struct_entries" },
     ],
@@ -133,7 +133,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "struct_entry",
     rule: [
-      ["single_identifier", "symbol_:", "expression"],
+      ["local_identifier", "symbol_:", "expression"],
     ],
   },
 
@@ -157,7 +157,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["literal_null"],
       ["literal_array"],
       ["literal_struct"],
-      ["compound_identifier"],
+      ["global_identifier"],
       ["block_evaluation"],
     ],
   },
@@ -169,7 +169,9 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["symbol_(", "expression", "symbol_)"],
       ["single_value_expression"],
     ],
-    omitIf: omitAllSingleReplacementTill("single_value_expression"),
+    transparentIf: [
+      { always: true },
+    ],
   },
 
 
@@ -191,7 +193,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["get_address_expression"],
       ["parentheses_expression"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
@@ -206,7 +208,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "member_accessing_expression",
     rule: [
-      ["value_accessing_expression", "symbol_.", "single_identifier"],
+      ["value_accessing_expression", "symbol_.", "local_identifier"],
     ],
   },
   {
@@ -224,7 +226,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["function_invoking_expression"],
       ["address_expression"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
@@ -236,7 +238,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["type_casting_expression", "keyword_as", "type_expression"],
       ["value_accessing_expression"],
     ],
-    omitIf: omitAllSingleReplacementTill("value_accessing_expression"),
+    transparentIf: omitAllSingleReplacementTill("value_accessing_expression"),
   },
 
 
@@ -280,7 +282,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["negative_value_expression"],
       ["type_casting_expression"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
@@ -312,7 +314,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["remainder_expression"],
       ["prefix_operator_expression"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
@@ -337,7 +339,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["subtraction_expression"],
       ["multiplacative_operator_expression"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
@@ -362,7 +364,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["bit_shift_right_expression"],
       ["additive_operator_expression"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
@@ -401,7 +403,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["greater_eq_than_expression"],
       ["bit_shift_expression"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
@@ -426,7 +428,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["inequality_expression"],
       ["relational_operator_expression"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
@@ -438,7 +440,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["bit_and_expression", "symbol_&", "equality_operator_expression"],
       ["equality_operator_expression"],
     ],
-    omitIf: omitAllSingleReplacementTill("equality_operator_expression"),
+    transparentIf: omitAllSingleReplacementTill("equality_operator_expression"),
   },
 
 
@@ -448,7 +450,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["bit_xor_expression", "symbol_^", "bit_and_expression"],
       ["bit_and_expression"],
     ],
-    omitIf: omitAllSingleReplacementTill("bit_and_expression"),
+    transparentIf: omitAllSingleReplacementTill("bit_and_expression"),
   },
 
 
@@ -458,7 +460,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["bit_or_expression", "symbol_|", "bit_xor_expression"],
       ["bit_xor_expression"],
     ],
-    omitIf: omitAllSingleReplacementTill("bit_xor_expression"),
+    transparentIf: omitAllSingleReplacementTill("bit_xor_expression"),
   },
 
 
@@ -468,7 +470,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["logical_and_expression", "symbol_&&", "bit_or_expression"],
       ["bit_or_expression"],
     ],
-    omitIf: omitAllSingleReplacementTill("bit_or_expression"),
+    transparentIf: omitAllSingleReplacementTill("bit_or_expression"),
   },
 
 
@@ -478,7 +480,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["logical_or_expression", "symbol_||", "logical_and_expression"],
       ["logical_and_expression"],
     ],
-    omitIf: omitAllSingleReplacementTill("logical_and_expression"),
+    transparentIf: omitAllSingleReplacementTill("logical_and_expression"),
   },
 
 

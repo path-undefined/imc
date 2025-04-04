@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { tokenDefinitions } from "../../lexer/token-definitions";
-import { ruleDefinitions } from "../rule-definitions";
+import { ruleDefinitions } from "../rule-definitions/rule-definitions";
 import { buildDecisionDsa } from "./build-decision-dsa";
 
 const dsa = buildDecisionDsa(tokenDefinitions, ruleDefinitions);

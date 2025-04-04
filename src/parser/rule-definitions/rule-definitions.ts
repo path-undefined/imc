@@ -15,8 +15,8 @@ export type OmitRule = {
 export type AstNodeRuleDefinition = {
   type: string;
   rule: string[][];
-  omitIf?: OmitRule[];
-}
+  transparentIf?: OmitRule[];
+};
 
 export const ruleDefinitions: AstNodeRuleDefinition[] = [
   {
@@ -25,7 +25,7 @@ export const ruleDefinitions: AstNodeRuleDefinition[] = [
       ["global_statements", "global_statement"],
       ["global_statement"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "global_statements" },
     ],
   },
@@ -38,7 +38,7 @@ export const ruleDefinitions: AstNodeRuleDefinition[] = [
       ["data_declaration_statement"],
       ["data_definition_statement"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },

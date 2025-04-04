@@ -1,5 +1,5 @@
 import { TokenDefinition } from "../../lexer/token-definitions";
-import { AstNodeRuleDefinition } from "../rule-definitions";
+import { AstNodeRuleDefinition } from "../rule-definitions/rule-definitions";
 import { buildClosure } from "./closure";
 
 describe("closure", () => {

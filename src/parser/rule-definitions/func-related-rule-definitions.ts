@@ -14,7 +14,7 @@ export const funcRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["func_parameters_", "symbol_,", "func_parameter"],
       ["func_parameter"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "func_parameters_" },
       { parentIs: "func_parameters" },
     ],
@@ -22,7 +22,7 @@ export const funcRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "func_parameter",
     rule: [
-      ["single_identifier", "symbol_:", "type_expression"],
+      ["local_identifier", "symbol_:", "type_expression"],
     ],
   },
   {
@@ -38,7 +38,7 @@ export const funcRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["func_arguments_", "symbol_,", "func_argument"],
       ["func_argument"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "func_arguments_" },
       { parentIs: "func_arguments" },
     ],

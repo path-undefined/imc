@@ -4,23 +4,33 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "data_declaration_statement",
     rule: [
+      ["annotations", "data_declaration_statement_"],
+      ["data_declaration_statement_"],
+    ],
+  },
+  {
+    type: "data_declaration_statement_",
+    rule: [
       ["var_declaration_statement"],
       ["func_declaration_statement"],
+    ],
+    transparentIf: [
+      { always: true },
     ],
   },
   {
     type: "var_declaration_statement",
     rule: [
-      ["keyword_var", "single_identifier", "symbol_:", "type_expression", "symbol_;"],
+      ["keyword_var", "local_identifier", "symbol_:", "type_expression", "symbol_;"],
     ],
   },
   {
     type: "func_declaration_statement",
     rule: [
-      ["keyword_func", "single_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
-      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "single_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
-      ["keyword_func", "single_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
-      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "single_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
+      ["keyword_func", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
+      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
+      ["keyword_func", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
+      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
     ],
   },
 
@@ -37,45 +47,51 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["var_definition_statement"],
       ["func_definition_statement"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
+  {
+    type: "var_definition_statement",
+    rule: [
+      ["keyword_var", "local_identifier", "symbol_:", "type_expression", "symbol_=", "expression", "symbol_;"],
+    ],
+  },
+  {
+    type: "func_definition_statement",
+    rule: [
+      ["keyword_func", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
+      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
+      ["keyword_func", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
+      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
+    ],
+  },
+
   {
     type: "annotations",
     rule: [
       ["annotations", "annotation"],
       ["annotation"]
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "annotations" },
     ],
   },
   {
     type: "annotation",
     rule: [
+      ["annotation_static"],
       ["annotation_inline"],
       ["annotation_register"],
       ["annotation_threadlocal"],
       ["annotation_restrict"],
       ["annotation_volatile"],
     ],
-  },
-  {
-    type: "var_definition_statement",
-    rule: [
-      ["keyword_var", "single_identifier", "symbol_:", "type_expression", "symbol_=", "expression", "symbol_;"],
+    transparentIf: [
+      { always: true },
     ],
   },
-  {
-    type: "func_definition_statement",
-    rule: [
-      ["keyword_func", "single_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
-      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "single_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
-      ["keyword_func", "single_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
-      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "single_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
-    ],
-  },
+
   {
     type: "block",
     rule: [
@@ -89,8 +105,9 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["block_statements", "block_statement"],
       ["block_statement"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "block_statements" },
+      { parentIs: "block" },
     ],
   },
   {
@@ -107,7 +124,7 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["break_statement"],
       ["return_statement"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
@@ -126,7 +143,7 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "left_value",
     rule: [
-      ["compound_identifier"],
+      ["global_identifier"],
       ["get_value_expression"],
       ["array_indexing_expression"],
       ["member_accessing_expression"],
@@ -147,7 +164,7 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["if_fragments", "if_fragment"],
       ["if_fragment"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "if_fragments" },
     ],
   },
@@ -169,7 +186,7 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["case_fragments", "case_fragment"],
       ["case_fragment"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "case_fragments" },
     ],
   },

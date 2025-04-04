@@ -1,9 +1,9 @@
 import * as decisionDsa from "./decision-dsa.json";
-import { Token } from "../lexer/token";
-import { AstNode } from "./ast-node";
+import { Token } from "../lexer/types";
+import { AstNode } from "./types";
 import { DecisionDsa, DecisionDsaState } from "./decision-dsa/types";
 import { twoSequencesAreEqual } from "./decision-dsa/utilities";
-import { ruleDefinitions } from "./rule-definitions";
+import { ruleDefinitions } from "./rule-definitions/rule-definitions";
 
 function runDsa(dsa: DecisionDsa, stackSequence: string[]): DecisionDsaState {
   let currentStateIndex = 0;
@@ -55,30 +55,37 @@ export function parse(tokens: Token[]): AstNode[] {
         const children: AstNode[] = [];
 
         for (const node of nodesInSeq) {
+          if (
+            node.type.startsWith("keyword_") ||
+            node.type.startsWith("symbol_")
+          ) {
+            continue;
+          }
+
           const ruleDef = ruleDefinitions.find((r) => r.type === node.type);
-          if (ruleDef && ruleDef.omitIf) {
-            let omitting = false;
-            for (const omitCondition of ruleDef.omitIf) {
+          if (ruleDef && ruleDef.transparentIf) {
+            let transparent = false;
+            for (const omitCondition of ruleDef.transparentIf) {
               if (omitCondition.always === true) {
-                omitting = true;
+                transparent = true;
                 break;
               }
               if (omitCondition.parentIs && omitCondition.parentIs !== state.type) {
-                omitting = omitting || false;
+                transparent = transparent || false;
                 continue;
               }
               if (
                 omitCondition.childrenAre &&
                 !twoSequencesAreEqual(omitCondition.childrenAre, node.children.map((c) => c.type))
               ) {
-                omitting = omitting || false;
+                transparent = transparent || false;
                 continue;
               }
-              omitting = true;
+              transparent = true;
               break;
             }
 
-            if (omitting) {
+            if (transparent) {
               children.push(...node.children);
             } else {
               children.push(node);

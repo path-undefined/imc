@@ -4,8 +4,8 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "type_declaration_statement",
     rule: [
-      ["keyword_type", "single_identifier", "symbol_=", "type_expression", "symbol_;"],
-      ["keyword_type", "single_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_=", "type_expression", "symbol_;"],
+      ["keyword_type", "local_identifier", "symbol_=", "type_expression", "symbol_;"],
+      ["keyword_type", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_=", "type_expression", "symbol_;"],
     ],
   },
   {
@@ -25,21 +25,21 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["struct_type_declaration"],
       ["func_type_declaration"],
     ],
-    omitIf: [
+    transparentIf: [
       { always: true },
     ],
   },
   {
     type: "single_type_expression",
     rule: [
-      ["compound_identifier"],
+      ["global_identifier"],
     ],
   },
   {
     type: "template_type_expression",
     rule: [
-      ["compound_identifier", "symbol_<", "type_arguments", "symbol_>"],
-      ["compound_identifier", "symbol_<", "type_arguments", "symbol_,", "symbol_>"],
+      ["global_identifier", "symbol_<", "type_arguments", "symbol_>"],
+      ["global_identifier", "symbol_<", "type_arguments", "symbol_,", "symbol_>"],
     ],
   },
   {
@@ -48,7 +48,7 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["type_arguments", "symbol_,", "type_argument"],
       ["type_argument"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "type_arguments" },
     ],
   },
@@ -72,15 +72,15 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["enum_items", "symbol_,", "enum_item"],
       ["enum_item"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "enum_items" },
     ],
   },
   {
     type: "enum_item",
     rule: [
-      ["single_identifier", "symbol_=", "expression"],
-      ["single_identifier"],
+      ["local_identifier", "symbol_=", "expression"],
+      ["local_identifier"],
     ],
   },
   {
@@ -96,7 +96,7 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["union_members", "symbol_,", "union_member"],
       ["union_member"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "union_members" },
     ],
   },
@@ -119,7 +119,7 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["struct_members", "symbol_,", "struct_member"],
       ["struct_member"],
     ],
-    omitIf: [
+    transparentIf: [
       { parentIs: "struct_members" },
     ],
   },
@@ -127,7 +127,7 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     type: "struct_member",
     rule: [
       ["keyword_extend", "type_expression"],
-      ["keyword_friend", "compound_identifier"],
+      ["keyword_friend", "global_identifier"],
       ["common_member"],
     ],
   },
@@ -136,7 +136,7 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     rule: [
       ["struct_type_declaration"],
       ["union_type_declaration"],
-      ["access_modifier", "single_identifier", "symbol_:", "type_expression"],
+      ["access_modifier", "local_identifier", "symbol_:", "type_expression"],
     ],
   },
   {

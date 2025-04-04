@@ -7,6 +7,7 @@ export const tokenDefinitions: TokenDefinition[] = [
   { type: "line_comment", matcher: /^\/\/.*(\r\n|\r|\n|$)/u },
   { type: "trash_character", matcher: /^[ \t\r\n]+/u },
 
+  { type: "annotation_static", matcher: "@static" },
   { type: "annotation_inline", matcher: "@inline" },
   { type: "annotation_register", matcher: "@register" },
   { type: "annotation_threadlocal", matcher: "@threadlocal" },

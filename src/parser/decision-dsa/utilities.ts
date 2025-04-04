@@ -1,5 +1,5 @@
 import { TokenDefinition } from "../../lexer/token-definitions";
-import { AstNodeRuleDefinition } from "../rule-definitions";
+import { AstNodeRuleDefinition } from "../rule-definitions/rule-definitions";
 import { RuleState } from "./types";
 
 export function twoSequencesAreEqual(seq1: string[], seq2: string[]): boolean {
