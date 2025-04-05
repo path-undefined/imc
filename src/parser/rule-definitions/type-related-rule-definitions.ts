@@ -4,8 +4,19 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "type_declaration_statement",
     rule: [
+      ["type_declaration_statement_"],
+      ["annotations", "type_declaration_statement_"],
+    ],
+  },
+  {
+    type: "type_declaration_statement_",
+    rule: [
+      ["keyword_type", "local_identifier", "symbol_;"],
       ["keyword_type", "local_identifier", "symbol_=", "type_expression", "symbol_;"],
       ["keyword_type", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_=", "type_expression", "symbol_;"],
+    ],
+    transparentIf: [
+      { always: true },
     ],
   },
   {

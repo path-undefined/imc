@@ -1,6 +1,6 @@
 import { AstNodeRuleDefinition } from "./rule-definitions";
 
-export const importExportRuleDefinitions: AstNodeRuleDefinition[] = [
+export const moduleRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "import_statement",
     rule: [
@@ -19,6 +19,12 @@ export const importExportRuleDefinitions: AstNodeRuleDefinition[] = [
     type: "alias_phrase",
     rule: [
       ["keyword_as", "local_identifier"],
+    ],
+  },
+  {
+    type: "include_statement",
+    rule: [
+      ["keyword_include", "literal_string", "keyword_from", "global_identifier", "symbol_;"],
     ],
   },
 ];

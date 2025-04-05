@@ -4,8 +4,8 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "data_declaration_statement",
     rule: [
-      ["annotations", "data_declaration_statement_"],
       ["data_declaration_statement_"],
+      ["annotations", "data_declaration_statement_"],
     ],
   },
   {
@@ -37,8 +37,8 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "data_definition_statement",
     rule: [
-      ["annotations", "data_definition_statement_"],
       ["data_definition_statement_"],
+      ["annotations", "data_definition_statement_"],
     ],
   },
   {
@@ -64,31 +64,6 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
       ["keyword_func", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
       ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
-    ],
-  },
-
-  {
-    type: "annotations",
-    rule: [
-      ["annotations", "annotation"],
-      ["annotation"]
-    ],
-    transparentIf: [
-      { parentIs: "annotations" },
-    ],
-  },
-  {
-    type: "annotation",
-    rule: [
-      ["annotation_static"],
-      ["annotation_inline"],
-      ["annotation_register"],
-      ["annotation_threadlocal"],
-      ["annotation_restrict"],
-      ["annotation_volatile"],
-    ],
-    transparentIf: [
-      { always: true },
     ],
   },
 
