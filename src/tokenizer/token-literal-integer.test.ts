@@ -1,4 +1,5 @@
-import { tokenize } from "./lexer";
+import { tokenDefinitions } from "./token-definitions";
+import { tokenize } from "./tokenizer";
 
 describe("token:literal_integer", () => {
   it("should be tokenized correctly (decimal)", () => {
@@ -21,7 +22,10 @@ describe("token:literal_integer", () => {
       "15ull",
     ];
 
-    const tokens = tokenize(examples.join("\n"));
+    const tokens = tokenize(
+      examples.join("\n"),
+      { tokenDefinitions },
+    );
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];
@@ -54,7 +58,10 @@ describe("token:literal_integer", () => {
       "0x1Aull",
     ];
 
-    const tokens = tokenize(examples.join("\n"));
+    const tokens = tokenize(
+      examples.join("\n"),
+      { tokenDefinitions },
+    );
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];
@@ -87,7 +94,10 @@ describe("token:literal_integer", () => {
       "0o14ull",
     ];
 
-    const tokens = tokenize(examples.join("\n"));
+    const tokens = tokenize(
+      examples.join("\n"),
+      { tokenDefinitions },
+    );
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];
@@ -118,7 +128,10 @@ describe("token:literal_integer", () => {
       "0b10ull",
     ];
 
-    const tokens = tokenize(examples.join("\n"));
+    const tokens = tokenize(
+      examples.join("\n"),
+      { tokenDefinitions },
+    );
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];

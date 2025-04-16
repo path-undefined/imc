@@ -1,30 +1,12 @@
-import * as decisionDsa from "./decision-dsa.json";
-import { Token } from "../lexer/types";
-import { AstNode } from "./types";
-import { DecisionDsa, DecisionDsaState } from "./decision-dsa/types";
+import { Token } from "../tokenizer/types";
+import { AstNode, ParsingConfig } from "./types";
 import { twoSequencesAreEqual } from "./decision-dsa/utilities";
+import { runDecisionDsa } from "./decision-dsa/run-decision-dsa";
 import { ruleDefinitions } from "./rule-definitions/rule-definitions";
 import { log } from "../logger/logger";
 
-function runDsa(dsa: DecisionDsa, stackSequence: string[]): DecisionDsaState {
-  let currentStateIndex = 0;
-
-  for (const symbol of stackSequence) {
-    const nextStateIndex = dsa.transitions
-      .find((t) => t.from === currentStateIndex && t.symbol === symbol)
-      ?.to || -1;
-
-    if (nextStateIndex < 0) {
-      throw Error("An unexpected error occurs");
-    }
-
-    currentStateIndex = nextStateIndex;
-  }
-
-  return dsa.states[currentStateIndex];
-}
-
-export function parse(tokens: Token[]): AstNode[] {
+export function parse(tokens: Token[], config: ParsingConfig): AstNode[] {
+  const decisionDsa = config.decisionDsa;
   const astStack: AstNode[] = [];
   const copiedTokens: Token[] = [
     ...tokens,
@@ -39,7 +21,7 @@ export function parse(tokens: Token[]): AstNode[] {
   while (copiedTokens.length > 0) {
     const token = copiedTokens[0];
     const astStackSeq = astStack.map((n) => n.type);
-    const dsaState = runDsa(decisionDsa as any, astStackSeq);
+    const dsaState = runDecisionDsa(decisionDsa as any, astStackSeq);
 
     log("debug", `Stack: ${astStackSeq.join(" ")}`);
     log("debug", `Next token: ${token.type}`);

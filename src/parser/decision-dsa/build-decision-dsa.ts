@@ -1,4 +1,4 @@
-import { TokenDefinition } from "../../lexer/token-definitions";
+import { TokenDefinition } from "../../tokenizer/types";
 import { log } from "../../logger/logger";
 import { AstNodeRuleDefinition } from "../rule-definitions/rule-definitions";
 import { buildClosure } from "./closure";

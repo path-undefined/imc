@@ -1,7 +1,4 @@
-export type TokenDefinition = {
-  type: string;
-  matcher: string | RegExp;
-};
+import { TokenDefinition } from "./types";
 
 export const tokenDefinitions: TokenDefinition[] = [
   { type: "line_comment", matcher: /^\/\/.*(\r\n|\r|\n|$)/u },

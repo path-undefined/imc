@@ -1,4 +1,5 @@
-import { tokenize } from "./lexer";
+import { tokenDefinitions } from "./token-definitions";
+import { tokenize } from "./tokenizer";
 
 describe("token:identifier", () => {
   it("should be tokenized correctly", () => {
@@ -13,7 +14,10 @@ describe("token:identifier", () => {
       "forKeyword",
     ];
 
-    const tokens = tokenize(examples.join("\n"));
+    const tokens = tokenize(
+      examples.join("\n"),
+      { tokenDefinitions },
+    );
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];

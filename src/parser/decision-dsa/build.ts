@@ -1,7 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { log } from "../../logger/logger";
-import { tokenDefinitions } from "../../lexer/token-definitions";
+import { tokenDefinitions } from "../../tokenizer/token-definitions";
 import { ruleDefinitions } from "../rule-definitions/rule-definitions";
 import { buildDecisionDsa } from "./build-decision-dsa";
 

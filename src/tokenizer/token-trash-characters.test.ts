@@ -1,9 +1,11 @@
-import { tokenize } from "./lexer";
+import { tokenDefinitions } from "./token-definitions";
+import { tokenize } from "./tokenizer";
 
 describe("token:trash_characters", () => {
   it("should not be tokenized", () => {
     const tokens = tokenize(
       " \t\r\n",
+      { tokenDefinitions },
     );
 
     expect(tokens).toEqual([]);
@@ -12,6 +14,7 @@ describe("token:trash_characters", () => {
   it("should also work between other contents", () => {
     const tokens = tokenize(
       "1 \t 2 \r 3 \n 4 \r\n 5",
+      { tokenDefinitions },
     );
 
     expect(tokens).toEqual([

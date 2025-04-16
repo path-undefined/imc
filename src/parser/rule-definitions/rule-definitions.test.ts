@@ -1,4 +1,4 @@
-import { tokenDefinitions } from "../../lexer/token-definitions";
+import { tokenDefinitions } from "../../tokenizer/token-definitions";
 import { ruleDefinitions } from "./rule-definitions";
 
 describe("rule-definitions", () => {

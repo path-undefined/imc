@@ -1,4 +1,5 @@
-import { tokenize } from "./lexer";
+import { tokenDefinitions } from "./token-definitions";
+import { tokenize } from "./tokenizer";
 
 describe("token:literal_float", () => {
   it("should be tokenized correctly (decimal)", () => {
@@ -28,7 +29,10 @@ describe("token:literal_float", () => {
       "1`1.2`2e-3l",
     ];
 
-    const tokens = tokenize(examples.join("\n"));
+    const tokens = tokenize(
+      examples.join("\n"),
+      { tokenDefinitions },
+    );
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];
@@ -62,7 +66,10 @@ describe("token:literal_float", () => {
       "0x1`2.E`Fp-3l",
     ];
 
-    const tokens = tokenize(examples.join("\n"));
+    const tokens = tokenize(
+      examples.join("\n"),
+      { tokenDefinitions },
+    );
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];

@@ -1,11 +1,11 @@
-import { Token } from "./types";
-import { tokenDefinitions } from "./token-definitions";
+import { Token, TokenizingConfig } from "./types";
 
 function isRegExp(m: RegExp | string): m is RegExp {
   return m instanceof RegExp;
 }
 
-export function tokenize(source: string): Token[] {
+export function tokenize(source: string, config: TokenizingConfig): Token[] {
+  const tokenDefinitions = config.tokenDefinitions;
   const tokens: Token[] = [];
   
   let copiedSource = `${source}`;

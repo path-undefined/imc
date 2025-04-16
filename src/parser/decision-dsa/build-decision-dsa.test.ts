@@ -1,4 +1,4 @@
-import { TokenDefinition } from "../../lexer/token-definitions";
+import { TokenDefinition } from "../../tokenizer/types";
 import { AstNodeRuleDefinition } from "../rule-definitions/rule-definitions";
 import { buildDecisionDsa } from "./build-decision-dsa";
 
