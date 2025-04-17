@@ -1,3 +1,5 @@
 export type CompilingConfig = {
-  entryPaths: string[];
+  sourceFilePaths: string[];
+  moduleRootPaths: string[];
+  temporaryDirPath: string;
 };
