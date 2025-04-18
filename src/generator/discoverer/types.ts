@@ -9,3 +9,14 @@ export type DiscoveredModule = {
   sourceFilePath: string;
   ast: AstNode[];
 };
+
+export type DiscoveredExport = {
+  name: string;
+  exports: ExportedItem[];
+};
+
+export type ExportedItem = {
+  type: "type" | "var" | "function";
+  exportedName: string;
+  // TODO: ...
+};

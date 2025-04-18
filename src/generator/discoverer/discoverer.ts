@@ -4,9 +4,13 @@ import { tokenize } from "../../tokenizer/tokenizer";
 import { parse } from "../../parser/parser";
 import { extractImportStatement } from "../extractor/module-related-extractors";
 import { filterChildOfType } from "../ast-utils";
-import { DiscoveredModule, DiscoveringConfig } from "./types";
+import {
+  DiscoveredExport,
+  DiscoveredModule,
+  DiscoveringConfig,
+} from "./types";
 
-export function discover(entryModuleName: string, config: DiscoveringConfig): DiscoveredModule[] {
+export function discoverModules(entryModuleName: string, config: DiscoveringConfig): DiscoveredModule[] {
   const modulePaths = config.modulePaths;
 
   function discoverRecursively(moduleName: string, discoveredModules: Map<string, DiscoveredModule>) {
@@ -53,4 +57,9 @@ export function discover(entryModuleName: string, config: DiscoveringConfig): Di
   discoverRecursively(entryModuleName, discoveredModules);
 
   return [...discoveredModules.values()];
+}
+
+export function discoverExports(modules: DiscoveredModule[]): DiscoveredExport[] {
+  // TODO: ...
+  return [];
 }
