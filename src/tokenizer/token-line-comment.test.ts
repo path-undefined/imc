@@ -1,4 +1,3 @@
-import { tokenDefinitions } from "./token-definitions";
 import { tokenize } from "./tokenizer";
 
 describe("token:line_comment", () => {
@@ -6,7 +5,6 @@ describe("token:line_comment", () => {
     const tokens = tokenize(
       "// These are useless\n" +
       "  //// No use",
-      { tokenDefinitions },
     );
 
     expect(tokens).toEqual([]);
@@ -15,7 +13,6 @@ describe("token:line_comment", () => {
   it("should also work after other content", () => {
     const tokens = tokenize(
       "12 // This number is useless",
-      { tokenDefinitions },
     );
 
     expect(tokens).toEqual([

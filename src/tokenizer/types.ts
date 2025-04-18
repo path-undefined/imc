@@ -1,7 +1,3 @@
-export type TokenizingConfig = {
-  tokenDefinitions: TokenDefinition[];
-};
-
 export type TokenDefinition = {
   type: string;
   matcher: string | RegExp;

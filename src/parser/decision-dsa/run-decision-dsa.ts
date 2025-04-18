@@ -9,7 +9,7 @@ export function runDecisionDsa(dsa: DecisionDsa, stackSequence: string[]): Decis
       ?.to || -1;
 
     if (nextStateIndex < 0) {
-      throw Error("An unexpected error occurs");
+      throw new Error("An unexpected error occurs");
     }
 
     currentStateIndex = nextStateIndex;

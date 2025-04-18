@@ -1,4 +1,3 @@
-import { tokenDefinitions } from "./token-definitions";
 import { tokenize } from "./tokenizer";
 
 describe("token:literal_float", () => {
@@ -29,10 +28,7 @@ describe("token:literal_float", () => {
       "1`1.2`2e-3l",
     ];
 
-    const tokens = tokenize(
-      examples.join("\n"),
-      { tokenDefinitions },
-    );
+    const tokens = tokenize(examples.join("\n"));
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];
@@ -66,10 +62,7 @@ describe("token:literal_float", () => {
       "0x1`2.E`Fp-3l",
     ];
 
-    const tokens = tokenize(
-      examples.join("\n"),
-      { tokenDefinitions },
-    );
+    const tokens = tokenize(examples.join("\n"));
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];

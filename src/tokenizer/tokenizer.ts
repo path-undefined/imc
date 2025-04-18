@@ -1,11 +1,11 @@
-import { Token, TokenizingConfig } from "./types";
+import { tokenDefinitions } from "./token-definitions";
+import { Token } from "./types";
 
 function isRegExp(m: RegExp | string): m is RegExp {
   return m instanceof RegExp;
 }
 
-export function tokenize(source: string, config: TokenizingConfig): Token[] {
-  const tokenDefinitions = config.tokenDefinitions;
+export function tokenize(source: string): Token[] {
   const tokens: Token[] = [];
   
   let copiedSource = `${source}`;
@@ -53,7 +53,7 @@ export function tokenize(source: string, config: TokenizingConfig): Token[] {
     }
 
     if (token === null) {
-      throw Error(`Unknown token at ${currentLine}:${currentLine}`);
+      throw new Error(`Unknown token at ${currentLine}:${currentLine}`);
     }
 
     if (token.type !== "line_comment" && token.type !== "trash_character") {

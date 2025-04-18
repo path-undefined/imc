@@ -1,4 +1,3 @@
-import { tokenDefinitions } from "./token-definitions";
 import { tokenize } from "./tokenizer";
 
 describe("token:literal_string", () => {
@@ -12,10 +11,7 @@ describe("token:literal_string", () => {
       `l"hello world 汉字";`,
     ];
 
-    const tokens = tokenize(
-      examples.join("\n"),
-      { tokenDefinitions },
-    );
+    const tokens = tokenize(examples.join("\n"));
 
     for (let i = 0; i < examples.length; i++) {
       const rawExample = examples[i].trim();
@@ -35,7 +31,6 @@ describe("token:literal_string", () => {
         `"this is a"`,
         `"multi-line string.";`,
       ].join("\n"),
-      { tokenDefinitions },
     );
 
     expect(token.type).toEqual("literal_string");
@@ -53,7 +48,6 @@ describe("token:literal_string", () => {
         `u8"this is a"`,
         `  "multi-line string.";`,
       ].join("\n"),
-      { tokenDefinitions },
     );
 
     expect(token.type).toEqual("literal_string");

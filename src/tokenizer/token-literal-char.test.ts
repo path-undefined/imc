@@ -1,4 +1,3 @@
-import { tokenDefinitions } from "./token-definitions";
 import { tokenize } from "./tokenizer";
 
 describe("token:literal_string", () => {
@@ -14,7 +13,6 @@ describe("token:literal_string", () => {
 
     const tokens = tokenize(
       examples.join("\n"),
-      { tokenDefinitions },
     );
 
     for (let i = 0; i < examples.length; i++) {

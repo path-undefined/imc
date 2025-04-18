@@ -1,4 +1,3 @@
-import { tokenDefinitions } from "./token-definitions";
 import { tokenize } from "./tokenizer";
 
 describe("token:identifier", () => {
@@ -14,10 +13,7 @@ describe("token:identifier", () => {
       "forKeyword",
     ];
 
-    const tokens = tokenize(
-      examples.join("\n"),
-      { tokenDefinitions },
-    );
+    const tokens = tokenize(examples.join("\n"));
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];
