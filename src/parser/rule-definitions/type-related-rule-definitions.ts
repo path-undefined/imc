@@ -13,7 +13,7 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     rule: [
       ["keyword_type", "local_identifier", "symbol_;"],
       ["keyword_type", "local_identifier", "symbol_=", "type_expression", "symbol_;"],
-      ["keyword_type", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_=", "type_expression", "symbol_;"],
+      ["keyword_type", "local_identifier", "symbol_[", "template_parameters", "symbol_]", "symbol_=", "type_expression", "symbol_;"],
     ],
     transparentIf: [
       { always: true },
@@ -49,8 +49,8 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "template_type_expression",
     rule: [
-      ["global_identifier", "symbol_<", "type_arguments", "symbol_>"],
-      ["global_identifier", "symbol_<", "type_arguments", "symbol_,", "symbol_>"],
+      ["global_identifier", "symbol_[", "type_arguments", "symbol_]"],
+      ["global_identifier", "symbol_[", "type_arguments", "symbol_,", "symbol_]"],
     ],
   },
   {
@@ -68,6 +68,9 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     rule: [
       ["type_expression"],
       ["expression"],
+    ],
+    transparentIf: [
+      { always: true },
     ],
   },
   {
@@ -93,6 +96,9 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["local_identifier", "symbol_=", "expression"],
       ["local_identifier"],
     ],
+    transparentIf: [
+      { always: true },
+    ],
   },
   {
     type: "union_type_declaration",
@@ -116,6 +122,9 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     rule: [
       ["common_member"],
     ],
+    transparentIf: [
+      { always: true },
+    ],
   },
   {
     type: "struct_type_declaration",
@@ -137,9 +146,17 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "struct_member",
     rule: [
-      ["keyword_extend", "type_expression"],
-      ["keyword_friend", "global_identifier"],
+      ["friend_member"],
       ["common_member"],
+    ],
+    transparentIf: [
+      { always: true },
+    ],
+  },
+  {
+    type: "friend_member",
+    rule: [
+      ["keyword_friend", "global_identifier"],
     ],
   },
   {
@@ -160,10 +177,8 @@ export const typeRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "func_type_declaration",
     rule: [
+      ["keyword_func", "symbol_(", "symbol_)", "symbol_->", "func_return_type"],
       ["keyword_func", "symbol_(", "func_parameters", "symbol_)", "symbol_->", "func_return_type"],
-      ["keyword_func", "symbol_(", "func_parameters", "symbol_,", "symbol_)", "symbol_->", "func_return_type"],
-      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "symbol_(", "func_parameters", "symbol_)", "symbol_->", "func_return_type"],
-      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "symbol_(", "func_parameters", "symbol_,", "symbol_)", "symbol_->", "func_return_type"],
     ],
   },
 ];

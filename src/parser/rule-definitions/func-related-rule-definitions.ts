@@ -25,6 +25,9 @@ export const funcRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["local_identifier", "symbol_:", "type_expression"],
       ["symbol_..."],
     ],
+    transparentIf: [
+      { always: true },
+    ],
   },
   {
     type: "func_arguments",
@@ -49,11 +52,8 @@ export const funcRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     rule: [
       ["expression"],
     ],
-  },
-  {
-    type: "func_receiver_type",
-    rule: [
-      ["type_expression"],
+    transparentIf: [
+      { always: true },
     ],
   },
   {

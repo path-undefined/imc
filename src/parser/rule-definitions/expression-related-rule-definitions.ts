@@ -15,9 +15,6 @@ function omitAllSingleReplacementTill(ref: string): OmitRule[] {
     { childrenAre: ["function_invoking_expression"] },
     { childrenAre: ["value_accessing_expression"] },
 
-    { childrenAre: ["type_casting_expression"] },
-
-    { childrenAre: ["sizeof_expression"] },
     { childrenAre: ["logical_not_expression"] },
     { childrenAre: ["bitwise_not_expression"] },
     { childrenAre: ["positive_value_expression"] },
@@ -102,6 +99,9 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     rule: [
       ["expression"],
     ],
+    transparentIf: [
+      { always: true },
+    ],
   },
 
 
@@ -134,6 +134,9 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     type: "struct_entry",
     rule: [
       ["local_identifier", "symbol_:", "expression"],
+    ],
+    transparentIf: [
+      { always: true },
     ],
   },
 
@@ -202,7 +205,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "array_indexing_expression",
     rule: [
-      ["value_accessing_expression", "symbol_[", "expression", "symbol_]"],
+      ["value_accessing_expression", "symbol_#", "address_expression"],
     ],
   },
   {
@@ -214,8 +217,11 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "function_invoking_expression",
     rule: [
+      ["value_accessing_expression", "symbol_(", "symbol_)"],
+      ["value_accessing_expression", "symbol_(", "symbol_[", "type_arguments", "symbol_]", "symbol_)"],
+      ["value_accessing_expression", "symbol_(", "symbol_[", "type_arguments", "symbol_]", "symbol_;", "symbol_)"],
       ["value_accessing_expression", "symbol_(", "func_arguments", "symbol_)"],
-      ["value_accessing_expression", "symbol_<", "type_arguments", "symbol_>", "symbol_(", "func_arguments", "symbol_)"],
+      ["value_accessing_expression", "symbol_(", "symbol_[", "type_arguments", "symbol_]", "symbol_;", "func_arguments", "symbol_)"],
     ],
   },
   {
@@ -225,29 +231,13 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["member_accessing_expression"],
       ["function_invoking_expression"],
       ["address_expression"],
-    ],
+    ], 
     transparentIf: [
       { always: true },
     ],
   },
 
 
-  {
-    type: "type_casting_expression",
-    rule: [
-      ["type_casting_expression", "keyword_as", "type_expression"],
-      ["value_accessing_expression"],
-    ],
-    transparentIf: omitAllSingleReplacementTill("value_accessing_expression"),
-  },
-
-
-  {
-    type: "sizeof_expression",
-    rule: [
-      ["keyword_sizeof", "prefix_operator_expression"],
-    ],
-  },
   {
     type: "logical_not_expression",
     rule: [
@@ -275,12 +265,11 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "prefix_operator_expression",
     rule: [
-      ["sizeof_expression"],
       ["logical_not_expression"],
       ["bitwise_not_expression"],
       ["positive_value_expression"],
       ["negative_value_expression"],
-      ["type_casting_expression"],
+      ["value_accessing_expression"],
     ],
     transparentIf: [
       { always: true },
@@ -348,13 +337,13 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "bit_shift_left_expression",
     rule: [
-      ["bit_shift_expression", "symbol_<", "symbol_<", "additive_operator_expression"],
+      ["bit_shift_expression", "symbol_<<", "additive_operator_expression"],
     ],
   },
   {
     type: "bit_shift_right_expression",
     rule: [
-      ["bit_shift_expression", "symbol_>", "symbol_>", "additive_operator_expression"],
+      ["bit_shift_expression", "symbol_>>", "additive_operator_expression"],
     ],
   },
   {

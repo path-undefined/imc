@@ -23,7 +23,6 @@ export const templateRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     type: "template_parameter",
     rule: [
       ["simple_template_parameter"],
-      ["constrained_template_parameter"],
       ["value_template_parameter"],
     ],
     transparentIf: [
@@ -37,15 +36,9 @@ export const templateRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     ],
   },
   {
-    type: "constrained_template_parameter",
-    rule: [
-      ["local_identifier", "symbol_:", "type_expression"],
-    ],
-  },
-  {
     type: "value_template_parameter",
     rule: [
-      ["keyword_value", "local_identifier", "symbol_:", "type_expression"],
+      ["local_identifier", "symbol_:", "type_expression"],
     ],
   },
 ];

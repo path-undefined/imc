@@ -27,10 +27,11 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "func_declaration_statement",
     rule: [
+      ["keyword_func", "local_identifier", "symbol_(", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
+      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
+      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_;", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
       ["keyword_func", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
-      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
-      ["keyword_func", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
-      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
+      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_;", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
     ],
   },
 
@@ -60,10 +61,11 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "func_definition_statement",
     rule: [
+      ["keyword_func", "local_identifier", "symbol_(", "symbol_)", "symbol_:", "func_return_type", "block"],
+      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_)", "symbol_:", "func_return_type", "block"],
+      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_;", "symbol_)", "symbol_:", "func_return_type", "block"],
       ["keyword_func", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
-      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
-      ["keyword_func", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
-      ["keyword_func", "symbol_(", "func_receiver_type", "symbol_)", "symbol_.", "local_identifier", "symbol_<", "template_parameters", "symbol_>", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
+      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_;", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
     ],
   },
 
