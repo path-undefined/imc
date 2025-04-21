@@ -6,8 +6,8 @@ function omitAllSingleReplacementTill(ref: string): OmitRule[] {
 
     { childrenAre: ["parentheses_expression"] },
 
-    { childrenAre: ["get_value_expression"] },
-    { childrenAre: ["get_address_expression"] },
+    { childrenAre: ["value_of_expression"] },
+    { childrenAre: ["address_of_expression"] },
     { childrenAre: ["adderss_expression"] },
 
     { childrenAre: ["array_indexing_expression"] },
@@ -179,21 +179,21 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
 
 
   {
-    type: "get_value_expression",
+    type: "value_of_expression",
     rule: [
       ["symbol_$", "address_expression"],
     ],
   },
   {
-    type: "get_address_expression",
+    type: "address_of_expression",
     rule: [
-      ["symbol_&", "address_expression"],
+      ["symbol_@", "address_expression"],
     ],
   },  {
     type: "address_expression",
     rule: [
-      ["get_value_expression"],
-      ["get_address_expression"],
+      ["value_of_expression"],
+      ["address_of_expression"],
       ["parentheses_expression"],
     ],
     transparentIf: [

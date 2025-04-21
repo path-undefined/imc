@@ -42,7 +42,18 @@ export const annotationRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "annotation_entry",
     rule: [
-      ["local_identifier", "symbol_:", "expression"],
+      ["local_identifier", "symbol_:", "annotation_value"],
+    ],
+  },
+  {
+    type: "annotation_value",
+    rule: [
+      ["literal_string"],
+      ["literal_integer"],
+      ["literal_bool"],
+    ],
+    transparentIf: [
+      { always: true },
     ],
   },
 ];

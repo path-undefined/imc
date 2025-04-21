@@ -5,18 +5,15 @@ export type DiscoveringConfig = {
 };
 
 export type DiscoveredModule = {
-  name: string;
+  moduleName: string;
   sourceFilePath: string;
   ast: AstNode[];
+  exports: Record<string, DiscoveredModuleExport>;
 };
 
-export type DiscoveredExport = {
-  name: string;
-  exports: ExportedItem[];
-};
-
-export type ExportedItem = {
-  type: "type" | "var" | "function";
-  exportedName: string;
-  // TODO: ...
+export type DiscoveredModuleExport = {
+  exportName: string;
+  moduleLocalName: string | null;
+  localName: string;
+  ast: AstNode;
 };

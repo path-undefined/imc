@@ -1,12 +1,12 @@
 import { AstNode } from "../../parser/types";
-import { filterChildOfType, findChildOfType } from "../ast-utils";
+import { getChildrenOfType, getChild } from "../ast-utils";
 
 export function extractGlobalIdentifier(node: AstNode): string[] {
-  const identifiers = filterChildOfType(node, "identifier");
+  const identifiers = getChildrenOfType(node, "identifier");
   return identifiers.map((i) => i.token!.raw);
 }
 
 export function extractLocalIdentifier(node: AstNode): string {
-  const identifier = findChildOfType(node, "identifier");
+  const identifier = getChild(node, "identifier");
   return identifier.token!.raw;
 }
