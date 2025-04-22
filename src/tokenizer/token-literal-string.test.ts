@@ -5,10 +5,8 @@ describe("token:literal_string", () => {
     const examples = [
       `"hello world";`,
       `"hello\\tworld\\n";`,
-      `u8"hello world 汉字";`,
-      `u16"hello world 汉字";`,
-      `u32"hello world 汉字";`,
-      `l"hello world 汉字";`,
+      `r"hello world 汉字";`,
+      `c"hello world";`,
     ];
 
     const tokens = tokenize(examples.join("\n"));
@@ -45,17 +43,17 @@ describe("token:literal_string", () => {
   it("should be tokenized correctly (multi-line, prefixed)", () => {
     const [ token ] = tokenize(
       [
-        `u8"this is a"`,
-        `  "multi-line string.";`,
+        `c"this is a"`,
+        ` "multi-line string.";`,
       ].join("\n"),
     );
 
     expect(token.type).toEqual("literal_string");
     expect(token.raw).toEqual([
-      `u8"this is a"`,
-      `  "multi-line string."`,
+      `c"this is a"`,
+      ` "multi-line string."`,
     ].join("\n"));
     expect(token.start).toEqual({ line: 1, char: 1 });
-    expect(token.end).toEqual({ line: 2, char: 23 });
+    expect(token.end).toEqual({ line: 2, char: 22 });
   });
 });

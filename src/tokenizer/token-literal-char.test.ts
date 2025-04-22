@@ -5,10 +5,8 @@ describe("token:literal_string", () => {
     const examples = [
       "'a'",
       "'\\n'",
-      "u8'汉'",
-      "u16'汉'",
-      "u32'汉'",
-      "l'汉'",
+      "r'汉'",
+      "c'e'",
     ];
 
     const tokens = tokenize(
