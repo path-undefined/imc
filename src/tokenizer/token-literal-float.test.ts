@@ -1,32 +1,27 @@
 import { tokenize } from "./tokenizer";
 
-describe("token:literal_float", () => {
+describe("token:literal_*_float", () => {
   it("should be tokenized correctly (decimal)", () => {
     const examples = [
-      "1.",
-      ".1",
-      "1.2",
-      "1_1.2",
-      "1.2_2",
-      "1_1.2_2",
-      "1e2",
-      "1e-2",
-      "1.e2",
-      "1.e-2",
-      ".1e2",
-      ".1e-2",
-      "1.2e3",
-      "1.2e-3",
-      "1_1.2e3",
-      "1_1.2e-3",
-      "1.2_2e3",
-      "1.2_2e-3",
-      "1_1.2_2e3",
-      "1_1.2_2e-3",
-      "1_1.2_2e-3f16",
-      "1_1.2_2e-3f32",
-      "1_1.2_2e-3f64",
-      "1_1.2_2e-3f128",
+      "0.9",
+      "0.99",
+      "00.9",
+      "00.99",
+      "0_1.9",
+      "1.0_9",
+      "1_0.0_9",
+      "0.9e3",
+      "0.9e-3",
+      "1_0.9e3",
+      "1_0.9e-3",
+      "1.0_9e3",
+      "1.0_9e-3",
+      "1_0.0_9e3",
+      "1_0.0_9e-3",
+      "1_0.0_9e-3f16",
+      "1_0.0_9e-3f32",
+      "1_0.0_9e-3f64",
+      "1_0.0_9e-3f128",
     ];
 
     const tokens = tokenize(examples.join("\n"));
@@ -35,33 +30,33 @@ describe("token:literal_float", () => {
       const example = examples[i];
       const token = tokens[i];
 
-      expect(token.type).toEqual("literal_float");
+      expect(token.type).toEqual("literal_dec_float");
       expect(token.raw).toEqual(example);
       expect(token.start).toEqual({ line: i + 1, char: 1 });
       expect(token.end).toEqual({ line: i + 1, char: 1 + example.length });
     }
   });
 
-  it("should be tokenized correctly (decimal)", () => {
+  it("should be tokenized correctly (hexadecimal)", () => {
     const examples = [
-      "0xFp2",
-      "0xFp-2",
-      "0xF.p2",
-      "0xF.p-2",
-      "0x.Fp2",
-      "0x.Fp-2",
-      "0xA.Fp3",
-      "0xA.Fp-3",
-      "0x1_2.Fp3",
-      "0x1_2.Fp-3",
-      "0x1.E_Fp3",
-      "0x1.E_Fp-3",
-      "0x1_2.E_Fp3",
-      "0x1_2.E_Fp-3",
-      "0x1_2.E_Fp-3f16",
-      "0x1_2.E_Fp-3f32",
-      "0x1_2.E_Fp-3f64",
-      "0x1_2.E_Fp-3f128",
+      "0x0.Fp3",
+      "0x0.Fp-3",
+      "0x00.Fp3",
+      "0x00.Fp-3",
+      "0x0.FFp3",
+      "0x0.FFp-3",
+      "0x00.FFp3",
+      "0x00.FFp-3",
+      "0x1_0.Fp3",
+      "0x1_0.Fp-3",
+      "0x1.0_Fp3",
+      "0x1.0_Fp-3",
+      "0x1_0.0_Fp3",
+      "0x1_0.0_Fp-3",
+      "0x1_0.0_Fp-3f16",
+      "0x1_0.0_Fp-3f32",
+      "0x1_0.0_Fp-3f64",
+      "0x1_0.0_Fp-3f128",
     ];
 
     const tokens = tokenize(examples.join("\n"));
@@ -70,7 +65,7 @@ describe("token:literal_float", () => {
       const example = examples[i];
       const token = tokens[i];
 
-      expect(token.type).toEqual("literal_float");
+      expect(token.type).toEqual("literal_hex_float");
       expect(token.raw).toEqual(example);
       expect(token.start).toEqual({ line: i + 1, char: 1 });
       expect(token.end).toEqual({ line: i + 1, char: 1 + example.length });

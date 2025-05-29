@@ -122,7 +122,6 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     rule: [
       ["global_identifier"],
       ["value_of_expression"],
-      ["array_indexing_expression"],
       ["member_accessing_expression"],
     ],
   },

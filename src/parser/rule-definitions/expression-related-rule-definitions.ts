@@ -10,7 +10,6 @@ function omitAllSingleReplacementTill(ref: string): OmitRule[] {
     { childrenAre: ["address_of_expression"] },
     { childrenAre: ["adderss_expression"] },
 
-    { childrenAre: ["array_indexing_expression"] },
     { childrenAre: ["member_accessing_expression"] },
     { childrenAre: ["function_invoking_expression"] },
     { childrenAre: ["value_accessing_expression"] },
@@ -150,6 +149,22 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
 
 
   {
+    type: "literal_integer",
+    rule: [
+      ["literal_hex_integer"],
+      ["literal_oct_integer"],
+      ["literal_bin_integer"],
+      ["literal_dec_integer"],
+    ],
+  },
+  {
+    type: "literal_float",
+    rule: [
+      ["literal_hex_float"],
+      ["literal_dec_float"],
+    ],
+  },
+  {
     type: "single_value_expression",
     rule: [
       ["literal_string"],
@@ -189,7 +204,8 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     rule: [
       ["symbol_@", "address_expression"],
     ],
-  },  {
+  },
+  {
     type: "address_expression",
     rule: [
       ["value_of_expression"],
@@ -203,15 +219,10 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
 
 
   {
-    type: "array_indexing_expression",
-    rule: [
-      ["value_accessing_expression", "symbol_#", "address_expression"],
-    ],
-  },
-  {
     type: "member_accessing_expression",
     rule: [
       ["value_accessing_expression", "symbol_.", "local_identifier"],
+      ["value_accessing_expression", "symbol_.", "address_expression"],
     ],
   },
   {
@@ -227,7 +238,6 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "value_accessing_expression",
     rule: [
-      ["array_indexing_expression"],
       ["member_accessing_expression"],
       ["function_invoking_expression"],
       ["address_expression"],

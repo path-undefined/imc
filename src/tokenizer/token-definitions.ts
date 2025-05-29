@@ -52,7 +52,6 @@ export const tokenDefinitions: TokenDefinition[] = [
   { type: "symbol_}", matcher: "}" },
   { type: "symbol_$", matcher: "$" },
   { type: "symbol_@", matcher: "@" },
-  { type: "symbol_#", matcher: "#" },
   { type: "symbol_.", matcher: "."},
   { type: "symbol_...", matcher: "..."},
   { type: "symbol_&&", matcher: "&&" },
@@ -73,8 +72,12 @@ export const tokenDefinitions: TokenDefinition[] = [
 
   { type: "literal_string", matcher: /^(c|r)?"([^"\\]|\\.)*"([ \t\r\n]*"([^"\\]|\\.)*")*/u },
   { type: "literal_char", matcher: /^(c|r)?'([^'\\]|\\.)'/u },
-  { type: "literal_integer", matcher: /^(0x[0-9A-F]+(_[0-9A-F]+)*|0o[0-7]+(_[0-7]+)*|0b[01]+(_[01]+)*|[0-9]+(_[0-9]+)*)(((i|ui)(8|16|32|64))|(s|us))?/u },
-  { type: "literal_float", matcher: /^((0x(([0-9A-F]+(_[0-9A-F]+)*)|(([0-9A-F]+(_[0-9A-F]+)*)\.([0-9A-F]+(_[0-9A-F]+)*)?)|(([0-9A-F]+(_[0-9A-F]+)*)?\.([0-9A-F]+(_[0-9A-F]+)*)))p-?[0-9]+)|(([0-9]+(_[0-9]+)*e-?[0-9]+)|((([0-9]+(_[0-9]+)*\.([0-9]+(_[0-9]+)*)?)|(([0-9]+(_[0-9]+)*)?\.[0-9]+(_[0-9]+)*))(e-?[0-9]+)?)))((f)(16|32|64|128))?/u },
+  { type: "literal_hex_integer", matcher: /^(0x[0-9A-F]+(_[0-9A-F]+)*)(((i|ui)(8|16|32|64))|(s|us))?/u },
+  { type: "literal_oct_integer", matcher: /^(0o[0-7]+(_[0-7]+)*)(((i|ui)(8|16|32|64))|(s|us))?/u },
+  { type: "literal_bin_integer", matcher: /^(0b[01]+(_[01]+)*)(((i|ui)(8|16|32|64))|(s|us))?/u },
+  { type: "literal_dec_integer", matcher: /^([0-9]+(_[0-9]+)*)(((i|ui)(8|16|32|64))|(s|us))?/u },
+  { type: "literal_hex_float", matcher: /^(0x([0-9A-F]+(_[0-9A-F]+)*\.[0-9A-F]+(_[0-9A-F]+)*)p-?[0-9]+)((f)(16|32|64|128))?/u },
+  { type: "literal_dec_float", matcher: /^(([0-9]+(_[0-9]+)*\.[0-9]+(_[0-9]+)*)(e-?[0-9]+)?)((f)(16|32|64|128))?/u },
   { type: "literal_bool", matcher: /^true|^false/u },
   { type: "literal_null", matcher: "null" },
 

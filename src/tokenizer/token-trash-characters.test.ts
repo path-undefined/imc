@@ -16,31 +16,31 @@ describe("token:trash_characters", () => {
 
     expect(tokens).toEqual([
       {
-        type: "literal_integer",
+        type: "literal_dec_integer",
         raw: "1",
         start: { line: 1, char: 1 },
         end: { line: 1, char: 2 },
       },
       {
-        type: "literal_integer",
+        type: "literal_dec_integer",
         raw: "2",
         start: { line: 1, char: 5 },
         end: { line: 1, char: 6 },
       },
       {
-        type: "literal_integer",
+        type: "literal_dec_integer",
         raw: "3",
         start: { line: 2, char: 2 },
         end: { line: 2, char: 3 },
       },
       {
-        type: "literal_integer",
+        type: "literal_dec_integer",
         raw: "4",
         start: { line: 3, char: 2 },
         end: { line: 3, char: 3 },
       },
       {
-        type: "literal_integer",
+        type: "literal_dec_integer",
         raw: "5",
         start: { line: 4, char: 2 },
         end: { line: 4, char: 3 },

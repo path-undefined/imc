@@ -17,7 +17,7 @@ describe("token:line_comment", () => {
 
     expect(tokens).toEqual([
       {
-        type: "literal_integer",
+        type: "literal_dec_integer",
         raw: "12",
         start: { line: 1, char: 1 },
         end: { line: 1, char: 3 },

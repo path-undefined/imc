@@ -1,6 +1,6 @@
 import { tokenize } from "./tokenizer";
 
-describe("token:literal_integer", () => {
+describe("token:literal_*_integer", () => {
   it("should be tokenized correctly (decimal)", () => {
     const examples = [
       "1",
@@ -26,7 +26,7 @@ describe("token:literal_integer", () => {
       const example = examples[i];
       const token = tokens[i];
 
-      expect(token.type).toEqual("literal_integer");
+      expect(token.type).toEqual("literal_dec_integer");
       expect(token.raw).toEqual(example);
       expect(token.start).toEqual({ line: i + 1, char: 1 });
       expect(token.end).toEqual({ line: i + 1, char: 1 + example.length });
@@ -58,7 +58,7 @@ describe("token:literal_integer", () => {
       const example = examples[i];
       const token = tokens[i];
 
-      expect(token.type).toEqual("literal_integer");
+      expect(token.type).toEqual("literal_hex_integer");
       expect(token.raw).toEqual(example);
       expect(token.start).toEqual({ line: i + 1, char: 1 });
       expect(token.end).toEqual({ line: i + 1, char: 1 + example.length });
@@ -90,7 +90,7 @@ describe("token:literal_integer", () => {
       const example = examples[i];
       const token = tokens[i];
 
-      expect(token.type).toEqual("literal_integer");
+      expect(token.type).toEqual("literal_oct_integer");
       expect(token.raw).toEqual(example);
       expect(token.start).toEqual({ line: i + 1, char: 1 });
       expect(token.end).toEqual({ line: i + 1, char: 1 + example.length });
@@ -120,7 +120,7 @@ describe("token:literal_integer", () => {
       const example = examples[i];
       const token = tokens[i];
 
-      expect(token.type).toEqual("literal_integer");
+      expect(token.type).toEqual("literal_bin_integer");
       expect(token.raw).toEqual(example);
       expect(token.start).toEqual({ line: i + 1, char: 1 });
       expect(token.end).toEqual({ line: i + 1, char: 1 + example.length });
