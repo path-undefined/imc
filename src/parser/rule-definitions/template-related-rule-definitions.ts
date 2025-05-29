@@ -1,4 +1,4 @@
-import { AstNodeRuleDefinition } from "./rule-definitions";
+import { AstNodeRuleDefinition } from "./types";
 
 export const templateRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {

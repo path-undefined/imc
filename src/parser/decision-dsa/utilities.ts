@@ -1,5 +1,5 @@
-import { TokenDefinition } from "../../tokenizer/types";
-import { AstNodeRuleDefinition } from "../rule-definitions/rule-definitions";
+import { TokenDefinition } from "../../tokenizer/token-definitions/types";
+import { AstNodeRuleDefinition } from "../rule-definitions/types";
 import { RuleState } from "./types";
 
 export function twoSequencesAreEqual(seq1: string[], seq2: string[]): boolean {

@@ -1,10 +1,10 @@
 import { log } from "../logger/logger";
-import { Token } from "../tokenizer/types";
+import { Token } from "../types/token";
+import { AstNode } from "../types/ast";
+import { ruleDefinitions } from "./rule-definitions/rule-definitions";
 import { twoSequencesAreEqual } from "./decision-dsa/utilities";
 import { runDecisionDsa } from "./decision-dsa/run-decision-dsa";
-import { ruleDefinitions } from "./rule-definitions/rule-definitions";
-import { AstNode } from "./types";
-import * as decisionDsa from "./decision-dsa.json";
+import * as decisionDsa from "./decision-dsa/decision-dsa.json";
 
 export function parse(tokens: Token[]): AstNode[] {
   const astStack: AstNode[] = [];

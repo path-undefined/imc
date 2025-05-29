@@ -1,23 +1,25 @@
-import { tokenize } from "./tokenizer";
+import { tokenize } from "../tokenizer";
 
-describe("token:literal_string", () => {
+describe("token:identifier", () => {
   it("should be tokenized correctly", () => {
     const examples = [
-      "'a'",
-      "'\\n'",
-      "r'汉'",
-      "c'e'",
+      "variable",
+      "camelCase",
+      "PascalCase",
+      "snake_case",
+      "SCREAMING_SNAKE_CASE",
+      "__variable2__",
+      "_2",
+      "forKeyword",
     ];
 
-    const tokens = tokenize(
-      examples.join("\n"),
-    );
+    const tokens = tokenize(examples.join("\n"));
 
     for (let i = 0; i < examples.length; i++) {
       const example = examples[i];
       const token = tokens[i];
 
-      expect(token.type).toEqual("literal_char");
+      expect(token.type).toEqual("identifier");
       expect(token.raw).toEqual(example);
       expect(token.start).toEqual({ line: i + 1, char: 1 });
       expect(token.end).toEqual({ line: i + 1, char: 1 + example.length });

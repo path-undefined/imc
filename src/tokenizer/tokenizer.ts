@@ -1,5 +1,5 @@
-import { tokenDefinitions } from "./token-definitions";
-import { Token } from "./types";
+import { Token } from "../types/token";
+import { tokenDefinitions } from "./token-definitions/token-definitions";
 
 function isRegExp(m: RegExp | string): m is RegExp {
   return m instanceof RegExp;

@@ -1,4 +1,4 @@
-import { tokenize } from "./tokenizer";
+import { tokenize } from "../tokenizer";
 
 describe("token:line_comment", () => {
   it("should not be tokenized", () => {

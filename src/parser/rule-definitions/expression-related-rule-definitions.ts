@@ -1,4 +1,4 @@
-import { AstNodeRuleDefinition, OmitRule } from "./rule-definitions";
+import { AstNodeRuleDefinition, OmitRule } from "./types";
 
 function omitAllSingleReplacementTill(ref: string): OmitRule[] {
   const omitTable = [

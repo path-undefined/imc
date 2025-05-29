@@ -1,4 +1,4 @@
-import { tokenize } from "./tokenizer";
+import { tokenize } from "../tokenizer";
 
 describe("token:literal_string", () => {
   it("should be tokenized correctly", () => {

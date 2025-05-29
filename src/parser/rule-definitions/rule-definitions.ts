@@ -1,3 +1,4 @@
+import { AstNodeRuleDefinition } from "./types";
 import { annotationRelatedRuleDefinitions } from "./annotation-related-rule-definitions";
 import { dataRelatedRuleDefinitions } from "./data-related-rule-definitions";
 import { expressionRelatedRuleDefinitions } from "./expression-related-rule-definitions";
@@ -6,18 +7,6 @@ import { identifierRelatedRuleDefinitions } from "./identifier-related-rule-defi
 import { moduleRelatedRuleDefinitions } from "./module-related-rule-definitions";
 import { templateRelatedRuleDefinitions } from "./template-related-rule-definitions";
 import { typeRelatedRuleDefinitions } from "./type-related-rule-definitions";
-
-export type OmitRule = {
-  parentIs?: string;
-  childrenAre?: string[];
-  always?: true;
-};
-
-export type AstNodeRuleDefinition = {
-  type: string;
-  rule: string[][];
-  transparentIf?: OmitRule[];
-};
 
 export const ruleDefinitions: AstNodeRuleDefinition[] = [
   {

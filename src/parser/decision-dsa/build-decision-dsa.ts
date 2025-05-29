@@ -1,6 +1,6 @@
-import { TokenDefinition } from "../../tokenizer/types";
+import { TokenDefinition } from "../../tokenizer/token-definitions/types";
 import { log } from "../../logger/logger";
-import { AstNodeRuleDefinition } from "../rule-definitions/rule-definitions";
+import { AstNodeRuleDefinition } from "../rule-definitions/types";
 import { buildClosure } from "./closure";
 import { buildGoto } from "./goto";
 import { DecisionDsa, DecisionDsaState, DecisionDsaTransition } from "./types";

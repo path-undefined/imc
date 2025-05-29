@@ -1,5 +1,5 @@
-import { TokenDefinition } from "../../tokenizer/types";
-import { AstNodeRuleDefinition } from "../rule-definitions/rule-definitions";
+import { TokenDefinition } from "../../tokenizer/token-definitions/types";
+import { AstNodeRuleDefinition } from "../rule-definitions/types";
 import { buildFirst } from "./first";
 
 describe("first", () => {

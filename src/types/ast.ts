@@ -1,4 +1,4 @@
-import { Token } from "../tokenizer/types";
+import { Token } from "./token";
 
 export type AstNode = {
   type: string;

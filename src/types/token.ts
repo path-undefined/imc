@@ -1,8 +1,3 @@
-export type TokenDefinition = {
-  type: string;
-  matcher: string | RegExp;
-};
-
 export type Token = {
   type: string;
   raw: string;
