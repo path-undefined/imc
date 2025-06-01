@@ -2,10 +2,8 @@ import { AstNodeRuleDefinition } from "./types";
 import { annotationRelatedRuleDefinitions } from "./annotation-related-rule-definitions";
 import { dataRelatedRuleDefinitions } from "./data-related-rule-definitions";
 import { expressionRelatedRuleDefinitions } from "./expression-related-rule-definitions";
-import { funcRelatedRuleDefinitions } from "./func-related-rule-definitions";
 import { identifierRelatedRuleDefinitions } from "./identifier-related-rule-definitions";
 import { moduleRelatedRuleDefinitions } from "./module-related-rule-definitions";
-import { templateRelatedRuleDefinitions } from "./template-related-rule-definitions";
 import { typeRelatedRuleDefinitions } from "./type-related-rule-definitions";
 
 export const ruleDefinitions: AstNodeRuleDefinition[] = [
@@ -25,6 +23,7 @@ export const ruleDefinitions: AstNodeRuleDefinition[] = [
       ["import_statement"],
       ["export_statement"],
       ["include_statement"],
+      ["contract_declaration_statement"],
       ["type_declaration_statement"],
       ["data_declaration_statement"],
       ["data_definition_statement"],
@@ -38,8 +37,6 @@ export const ruleDefinitions: AstNodeRuleDefinition[] = [
   ...typeRelatedRuleDefinitions,
   ...dataRelatedRuleDefinitions,
 
-  ...templateRelatedRuleDefinitions,
-  ...funcRelatedRuleDefinitions,
   ...annotationRelatedRuleDefinitions,
   ...identifierRelatedRuleDefinitions,
   ...expressionRelatedRuleDefinitions,

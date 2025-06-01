@@ -1,4 +1,5 @@
 import { AstNodeRuleDefinition } from "./types";
+import { listOf } from "./utilities";
 
 export const annotationRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
@@ -14,37 +15,21 @@ export const annotationRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
     type: "annotation",
     rule: [
-      ["symbol_@", "local_identifier"],
-      ["symbol_@", "local_identifier", "symbol_{", "annotation_entries", "symbol_}"],
+      ["symbol_#", "local_identifier"],
+      ["symbol_#", "local_identifier", "symbol_{", "annotation_entries", "symbol_}"],
     ],
     transparentIf: [
       { always: true },
     ],
   },
-  {
-    type: "annotation_entries",
-    rule: [
-      ["annotation_entries_"],
-      ["annotation_entries_", "symbol_,"],
-    ],
-  },
-  {
-    type: "annotation_entries_",
-    rule: [
-      ["annotation_entries_", "symbol_,", "annotation_entry"],
-      ["annotation_entry"],
-    ],
-    transparentIf: [
-      { parentIs: "annotation_entries_" },
-      { parentIs: "annotation_entries" },
-    ],
-  },
-  {
+  ...listOf({
     type: "annotation_entry",
+    plural: "annotation_entries",
+    splitter: "symbol_,",
     rule: [
       ["local_identifier", "symbol_:", "annotation_value"],
     ],
-  },
+  }),
   {
     type: "annotation_value",
     rule: [

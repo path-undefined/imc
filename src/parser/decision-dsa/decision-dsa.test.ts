@@ -1,8 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { buildTerminalSymbolSet } from "./decision-dsa/utilities";
-import { tokenDefinitions } from "../tokenizer/token-definitions/token-definitions";
-import { DecisionDsa, RuleState } from "./decision-dsa/types";
+import { tokenDefinitions } from "../../tokenizer/token-definitions/token-definitions";
+import { buildTerminalSymbolSet } from "./utilities";
+import { DecisionDsa, RuleState } from "./types";
 
 type OperationRecord = {
   shift: RuleState[];

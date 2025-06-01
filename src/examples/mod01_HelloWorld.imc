@@ -1,0 +1,11 @@
+import std::io;
+
+func main(argc: int32, argv: arr[ptr[char]]): int {
+  std::io::printf(c"hello world\n");
+
+  loop with { var i: int32 = 0; } while (i < argc) do {
+    std::io::printf(c"  argv[%d] = %s\n", i, argv.(i));
+  }
+
+  return 0;
+}

@@ -1,0 +1,28 @@
+import std::io;
+
+pact NamedItem() = {
+  this.name is arr[char],
+};
+
+func greetAll[T: NamedItem](items: arr[T], length: size): void {
+  loop
+  with { var i: size = 0; }
+  while (size < length)
+  do {
+    std::io::printf("Hello, %s!\n", items.(i).name);
+  }
+  then { i = i + 1; }
+}
+
+type Person = struct {
+  public name: arr[char],
+};
+
+func main(argc: int32, argv: arr[ptr[char]]): int {
+  greetAll[Person](arr[Person, 2] {
+    Person { name: "foo" },
+    Person { name: "bar" },
+  });
+
+  return 0;
+}

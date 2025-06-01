@@ -187,9 +187,7 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
       ["symbol_(", "expression", "symbol_)"],
       ["single_value_expression"],
     ],
-    transparentIf: [
-      { always: true },
-    ],
+    transparentIf: omitAllSingleReplacementTill("single_value_expression"),
   },
 
 
@@ -222,17 +220,16 @@ export const expressionRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     type: "member_accessing_expression",
     rule: [
       ["value_accessing_expression", "symbol_.", "local_identifier"],
-      ["value_accessing_expression", "symbol_.", "address_expression"],
+      ["value_accessing_expression", "symbol_.", "parentheses_expression"],
     ],
   },
   {
     type: "function_invoking_expression",
     rule: [
       ["value_accessing_expression", "symbol_(", "symbol_)"],
-      ["value_accessing_expression", "symbol_(", "symbol_[", "type_arguments", "symbol_]", "symbol_)"],
-      ["value_accessing_expression", "symbol_(", "symbol_[", "type_arguments", "symbol_]", "symbol_;", "symbol_)"],
       ["value_accessing_expression", "symbol_(", "func_arguments", "symbol_)"],
-      ["value_accessing_expression", "symbol_(", "symbol_[", "type_arguments", "symbol_]", "symbol_;", "func_arguments", "symbol_)"],
+      ["global_identifier", "symbol_[", "type_arguments", "symbol_]", "symbol_(", "symbol_)"],
+      ["global_identifier", "symbol_[", "type_arguments", "symbol_]", "symbol_(", "func_arguments", "symbol_)"],
     ],
   },
   {

@@ -1,4 +1,5 @@
 import { AstNodeRuleDefinition } from "./types";
+import { listOf } from "./utilities";
 
 export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
   {
@@ -28,12 +29,12 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     type: "func_declaration_statement",
     rule: [
       ["keyword_func", "local_identifier", "symbol_(", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
-      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
-      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_;", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
       ["keyword_func", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
-      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_;", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
+      ["keyword_func", "local_identifier", "symbol_[", "template_parameters", "symbol_]", "symbol_(", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
+      ["keyword_func", "local_identifier", "symbol_[", "template_parameters", "symbol_]", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "symbol_;"],
     ],
   },
+
 
   {
     type: "data_definition_statement",
@@ -62,12 +63,37 @@ export const dataRelatedRuleDefinitions: AstNodeRuleDefinition[] = [
     type: "func_definition_statement",
     rule: [
       ["keyword_func", "local_identifier", "symbol_(", "symbol_)", "symbol_:", "func_return_type", "block"],
-      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_)", "symbol_:", "func_return_type", "block"],
-      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_;", "symbol_)", "symbol_:", "func_return_type", "block"],
       ["keyword_func", "local_identifier", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
-      ["keyword_func", "local_identifier", "symbol_(", "symbol_[", "template_parameters", "symbol_]", "symbol_;", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
+      ["keyword_func", "local_identifier", "symbol_[", "template_parameters", "symbol_]", "symbol_(", "symbol_)", "symbol_:", "func_return_type", "block"],
+      ["keyword_func", "local_identifier", "symbol_[", "template_parameters", "symbol_]", "symbol_(", "func_parameters", "symbol_)", "symbol_:", "func_return_type", "block"],
     ],
   },
+
+
+  ...listOf({
+    type: "func_parameter",
+    plural: "func_parameters",
+    splitter: "symbol_,",
+    rule: [
+      ["local_identifier", "symbol_:", "type_expression"],
+      ["symbol_..."],
+    ],
+  }),
+  ...listOf({
+    type: "func_argument",
+    plural: "func_arguments",
+    splitter: "symbol_,",
+    rule: [
+      ["expression"],
+    ],
+  }),
+  {
+    type: "func_return_type",
+    rule: [
+      ["type_expression"],
+    ],
+  },
+
 
   {
     type: "block",
